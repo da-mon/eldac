@@ -1,0 +1,19 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: eldac
+  password: changeme
+
+development:
+  <<: *default
+  database: eldac_dev
+
+test:
+  <<: *default
+  database: eldac_test
+
+production:
+  <<: *default
+  database: eldac
