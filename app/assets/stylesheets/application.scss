@@ -1,3 +1,130 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree
+ *= require_self
+ */
 
-// Custom bootstrap variables must be set or import before bootstrap itself.
-@import "bootstrap";
+body
+{
+    padding-top: 80px;
+    padding-bottom: 0;
+}
+
+div#myCarousel
+{
+    margin-top: -80px;
+}
+
+.navbar-logo
+{
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+}
+
+a
+{
+    color: #b11;
+}
+
+a:hover
+{
+    color: #f00;
+}
+
+.sidebar
+{
+    background: #eee;
+    padding: 0;
+    margin: -30px 0 0 0;
+    min-height: 1000px;
+    border-right: 1px solid #808080;
+    position: fixed;
+}
+
+.sidebar a
+{
+    color: #333;
+}
+
+.sidebar li a:hover
+{
+    color: #000;
+    background: #ddd;
+}
+
+.sidebar li.active
+{
+    background: #ccc;
+}
+
+.sidebar li.active a
+{
+    color: #333;
+}
+
+.main
+{
+    margin-top: -56px;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background: #ddd;
+}
+
+.table tbody tr td.middle
+{
+    vertical-align: middle;
+}
+
+ul.nav-tabs
+{
+    margin-bottom: -1px;
+}
+
+.center
+{
+    text-align: center;
+}
+
+div.right
+{
+    float: right;
+}
+
+div.hidden
+{
+    display: none;
+}
+
+tr.hand:hover
+{
+    cursor: pointer;
+}
+
+tr.hand:hover
+{
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+}
+
+tr.hand:active
+{
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+}
+
+table.table td.indent
+{
+    padding-left: 35px;
+}

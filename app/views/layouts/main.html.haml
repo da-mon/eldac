@@ -1,5 +1,5 @@
 !!! 5
-%html(lang='en')
+%html
   %head
     %title ELDAC - Electronic Data Capture
     %meta(charset='utf-8')
@@ -9,7 +9,12 @@
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-  %body
-    = render 'shared/menu'
-    = render 'shared/flash'
-    = yield
+%body
+  = render 'shared/menu'
+  = render 'shared/flash'
+  .class.container-fluid
+    .row
+      .class.col-sm-3.col-md-2.sidebar
+        = render 'shared/sidebar'
+      .class.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+        = yield

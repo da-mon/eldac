@@ -1,0 +1,29 @@
+
+.navbar-wrapper
+  .container
+    %nav.navbar.navbar-inverse.navbar-fixed-top
+      = link_to( image_tag('/favicon.png', :class => 'navbar-left navbar-logo hidden-xs', :title => '', :alt => ''), logged_in? ? projects_path : root_path)
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to SITE_TITLE, logged_in? ? projects_path : root_path, :class => 'navbar-brand'
+        #navbar.navbar-collapse.collapse
+          %ul.nav.navbar-nav.navbar-right
+            %li{class: active_menu('/')}<
+              = link_to(raw('<span class="glyphicon glyphicon-home"></span>&nbsp; Home'), logged_in? ? projects_path : root_path)
+            %li{class: active_menu('/about')}<
+              = link_to(raw('<span class="glyphicon glyphicon-info-sign"></span>&nbsp; About'), about_path)
+            %li{class: active_menu('/contact')}<
+              = link_to(raw('<span class="glyphicon glyphicon-globe"></span>&nbsp; Contact'), contact_path)
+            - if logged_in?
+              %li<
+                = link_to(raw('span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout'), login_path, :method => :delete)
+            - if !logged_in?
+              %li{class: active_menu('/users/new')}<
+                = link_to(raw('<span class="glyphicon glyphicon-plus-sign"></span>&nbsp; Signup'), new_user_path)
+            %li{class: active_menu('/login')}<
+              = link_to( raw('<span class="glyphicon glyphicon-log-in"></span>&nbsp; Login'), login_path)
