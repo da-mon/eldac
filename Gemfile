@@ -9,6 +9,12 @@ gem 'sprockets-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
 
+#gem 'sprockets-rails'
+#gem 'bootstrap', '~> 4.0.0.alpha3'
+#source 'https://rails-assets.org' do
+#  gem 'rails-assets-tether', '>= 1.1.0'
+#end
+
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'

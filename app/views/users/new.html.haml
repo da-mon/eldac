@@ -1,2 +1,68 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+.container
+  .col-md-3
+  .col-md-6
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Signup
+      .panel-body
+        = form_for @user do |f|
+          - if @user.errors[:fname].empty?
+            .form-group
+              %label.control-label{:for => 'fname'} First Name
+              %input#user_fname.form-control{:name => 'user[fname]', :placeholder => 'First Name', :type => 'text', :value => @user.fname}/
+          - else
+            .form-group.has-error.has-feedback
+              %label.control-label{:for => 'fname'} First Name
+              %input#user_fname.form-control{'aria-describedby' => 'fnameErrorStatus', :name => 'user[fname]', :placeholder => 'First Name', :type => 'text', :value => @user.fname}/
+              %span.glyphicon.glyphicon-remove.form-control-feedback{'aria-hidden' => 'true'}
+              %span#fnameErrorStatus.sr-only (error)
+              %span.help-block= @user.errors[:fname].first
+          - if @user.errors[:lname].empty?
+            .form-group
+              %label.control-label{:for => 'lname'} Last Name
+              %input#user_lname.form-control{:name => 'user[lname]', :placeholder => 'Last Name', :type => 'text', :value => @user.lname}/
+          - else
+            .form-group.has-error.has-feedback
+              %label.control-label{:for => 'lname'} Last Name
+              %input#user_lname.form-control{'aria-describedby' => 'lnameErrorStatus', :name => 'user[lname]', :placeholder => 'Last Name', :type => 'text', :value => @user.lname}/
+              %span.glyphicon.glyphicon-remove.form-control-feedback{'aria-hidden' => 'true'}
+              %span#lnameErrorStatus.sr-only (error)
+              %span.help-block= @user.errors[:lname].first
+          - if @user.errors[:email].empty?
+            .form-group
+              %label.control-label{:for => 'email'} Email
+              %input#user_email.form-control{:name => 'user[email]', :placeholder => 'Email', :type => 'text', :value => @user.email}/
+          - else
+            .form-group.has-error.has-feedback
+              %label.control-label{:for => 'email'} Email
+              %input#user_email.form-control{'aria-describedby' => 'emailErrorStatus', :name => 'user[email]', :placeholder => 'Email', :type => 'text', :value => @user.email}/
+              %span.glyphicon.glyphicon-remove.form-control-feedback{'aria-hidden' => 'true'}
+              %span#emailErrorStatus.sr-only (error)
+              %span.help-block= @user.errors[:email].first
+          - if @user.errors[:password].empty?
+            .form-group
+              %label.control-label{:for => 'password'} Password
+              %input#user_password.form-control{:name => 'user[password]', :placeholder => 'Password', :type => 'password', :value => @user.password}/
+          - else
+            .form-group.has-error.has-feedback
+              %label.control-label{:for => 'password'} Password
+              %input#user_password.form-control{'aria-describedby' => 'passwordErrorStatus', :name => 'user[password]', :placeholder => 'Password', :type => 'password', :value => @user.password}/
+              %span.glyphicon.glyphicon-remove.form-control-feedback{'aria-hidden' => 'true'}
+              %span#passwordErrorStatus.sr-only (error)
+              %span.help-block= @user.errors[:password].first
+          - if @user.errors[:password_confirmation].empty?
+            .form-group
+              %label.control-label{:for => 'password_confirmation'} Password Confirmation
+              %input#user_password_confirmation.form-control{:name => 'user[password_confirmation]', :placeholder => 'Password Confirmation', :type => 'password', :value => @user.password_confirmation}/
+          - else
+            .form-group.has-error.has-feedback
+              %label.control-label{:for => 'password_confirmation'} Password Confirmation
+              %input#user_password_confirmation.form-control{'aria-describedby' => 'password_confirmationErrorStatus', :name => 'user[password_confirmation]', :placeholder => 'Password Confirmation', :type => 'password', :value => @user.password_confirmation}/
+              %span.glyphicon.glyphicon-remove.form-control-feedback{'aria-hidden' => 'true'}
+              %span#password_confirmationErrorStatus.sr-only (error)
+              %span.help-block= @user.errors[:password_confirmation].first
+          .form-group
+            %button.btn.btn-danger{:type => 'submit'}
+              %span.glyphicon.glyphicon-plus-sign>
+              \&nbsp; Signup
+  .col-md-3
