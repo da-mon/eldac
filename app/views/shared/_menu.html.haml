@@ -21,9 +21,9 @@
               = link_to(raw('<span class="glyphicon glyphicon-globe"></span>&nbsp; Contact'), contact_path)
             - if logged_in?
               %li<
-                = link_to(raw('span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout'), login_path, :method => :delete)
+                = link_to(raw('<span class="glyphicon glyphicon-log-out"></span>&nbsp; Logout'), login_path, :method => :delete)
             - if !logged_in?
               %li{class: active_menu('/users/new')}<
                 = link_to(raw('<span class="glyphicon glyphicon-plus-sign"></span>&nbsp; Signup'), new_user_path)
-            %li{class: active_menu('/login')}<
-              = link_to( raw('<span class="glyphicon glyphicon-log-in"></span>&nbsp; Login'), login_path)
+              %li{class: active_menu('/login')}<
+                = link_to( raw('<span class="glyphicon glyphicon-log-in"></span>&nbsp; Login'), login_path)
