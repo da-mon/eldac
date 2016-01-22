@@ -1,2 +1,12 @@
-<h1>Projects#index</h1>
-<p>Find me in app/views/projects/index.html.erb</p>
+
+%h3.page-header.hidden-xs Projects
+
+%p
+  = link_to raw('<span class="glyphicon glyphicon-plus"></span>&nbsp; New Project'), new_project_path, {:type => 'button', :class => 'btn btn-success'}
+  - unless @projects && @projects.count.zero?
+    = link_to raw('<span class="glyphicon glyphicon-wrench"></span>&nbsp; Organize Projects'), organize_projects_path, {:type => 'button', :class => 'btn btn-info'}
+
+- if @projects
+  = render 'projects/projects_list'
+- elsif @folders
+  = render 'projects/folders_list'

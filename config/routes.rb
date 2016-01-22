@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :projects
+  resources :records
+
+  resources :projects do
+    get :organize, on: :collection
+  end
+
   resources :users
 
   get    'login' => 'sessions#new'

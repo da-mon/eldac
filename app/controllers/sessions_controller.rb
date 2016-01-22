@@ -1,4 +1,3 @@
-
 class SessionsController < ApplicationController
 
   def new
@@ -11,7 +10,7 @@ class SessionsController < ApplicationController
       if @user.email_valid
         if User.authenticate(@user.email, params.fetch(:password, ''))
           session[:user_id] = @user.id
-          redirect_to root_path
+          redirect_to projects_path
           return false
         end
       else

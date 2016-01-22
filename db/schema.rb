@@ -57,9 +57,12 @@ ActiveRecord::Schema.define(version: 18) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string  "name",    limit: 64,                 null: false
+    t.boolean "deleted",            default: false
   end
+
+  add_index "projects", ["deleted"], name: "index_projects_on_deleted", using: :btree
+  add_index "projects", ["name"], name: "index_projects_on_name", using: :btree
 
   create_table "records", force: :cascade do |t|
     t.datetime "created_at", null: false
