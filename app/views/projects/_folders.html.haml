@@ -29,4 +29,4 @@
               %tr.hand{ id: "f_#{f.id}" }
                 %td.middle
                   = raw("#{sg 'sort'} #{f.name}")
-                %td.col-md-1= link_to raw("#{sg 'remove'} &nbsp;Delete"), folder_path(f), method: :delete, type: :button, class: 'btn btn-sm btn-danger'
+                %td.tight= link_to raw("#{sg 'remove'} &nbsp;Delete"), folder_path(f), method: :delete, type: :button, class: 'btn btn-sm btn-danger'

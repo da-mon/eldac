@@ -28,12 +28,16 @@ class FoldersController < ApplicationController
   def organize
     session[:organize_folder_id] = params[:folder_id].to_i
     get_projects_list
-    render :partial => 'projects_list'
+    if @folder
+      render :partial => 'projects_list'
+      return
+    end
+    render nothing: true
     return false
   end
 
   def destroy
-    @folder = @current_user.folders.where(:id => params[:id]).first
+    @folder = @current_user.folders.where(id: params[:id]).first
     @folder.destroy if @folder
     redirect_to organize_projects_path
     return false
@@ -46,7 +50,7 @@ class FoldersController < ApplicationController
       return false
     end
     @projects = @current_user.undeleted_projects
-    @folders = @current_user.sorted_folders
+    @folders = @current_user.folders
     render 'projects/organize'
     return false
   end
@@ -56,5 +60,5 @@ class FoldersController < ApplicationController
   def folder_params
     params.permit(:name).merge(:user => @current_user)
   end
-  
+
 end

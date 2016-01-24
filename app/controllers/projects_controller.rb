@@ -97,7 +97,7 @@ class ProjectsController < ApplicationController
     if params[:project_ids]
       @folder = @current_user.folders.where(:id => params[:folder_id].to_i).first
       unless @folder.nil?
-        params[:project_ids].collect{|id|id}.each do |id|
+        params[:project_ids].collect{ |id| id.to_i }.each do |id|
           @project_folder = @current_user.project_folders.where(:folder => @folder, :project_id => id).first
           if params[:checkall].to_i == 1
             ProjectFolder.create!(:user => @current_user,

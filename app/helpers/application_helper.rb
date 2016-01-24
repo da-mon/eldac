@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def dl
-    '➤'
+    raw '&nbsp;↪&nbsp;'
   end
 
   def sg(glyph)

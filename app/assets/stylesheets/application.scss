@@ -128,3 +128,9 @@ table.table td.indent
 {
     padding-left: 35px;
 }
+
+table.table tbody td.tight
+{
+    width: 1%;
+    white-space: nowrap;
+}

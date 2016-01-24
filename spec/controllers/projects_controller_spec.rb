@@ -3,6 +3,78 @@ require 'rails_helper'
 
 RSpec.describe ProjectsController, type: :controller do
 
+  describe 'POST #toggle_folder' do
+
+    let(:user) { create(:user, :valid_user) }
+    let(:folder) { create(:folder, :valid_folder, user: user) }
+    let(:project) { create(:project, :valid_project) }
+    let(:owner) { create(:relationship, name: 'owner') }
+    let!(:user_project) { create(:user_project, :valid_user_project, user: user, project: project, relationship: owner) }
+
+    it 'redirects anon users' do
+      post :toggle_folder
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'valid toggle renders nothing' do
+      expect {
+        post :toggle_folder, { folder_id: folder.id, project_ids: [project.id] }, { user_id: user.id }
+      }.to change(ProjectFolder, :count).by(1)
+      expect(response).to render_template(nil)
+
+      expect {
+        post :toggle_folder, { folder_id: folder.id, project_ids: [project.id] }, { user_id: user.id }
+      }.to change(ProjectFolder, :count).by(-1)
+      expect(response).to render_template(nil)
+    end
+
+  end
+
+  describe 'POST #checkall_folder' do
+
+    let(:user) { create(:user, :valid_user) }
+    let(:folder) { create(:folder, :valid_folder, user: user) }
+    let(:project) { create(:project, :valid_project) }
+    let(:owner) { create(:relationship, name: 'owner') }
+    let!(:user_project) { create(:user_project, :valid_user_project, user: user, project: project, relationship: owner) }
+
+    it 'redirects anon users' do
+      post :checkall_folder
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'valid check all renders nothing' do
+      expect {
+        post :checkall_folder, { checkall: 1, folder_id: folder.id, project_ids: [project.id] }, { user_id: user.id }
+      }.to change(ProjectFolder, :count).by(1)
+      expect(response).to render_template(nil)
+
+      expect {
+        post :checkall_folder, { checkall: 0, folder_id: folder.id, project_ids: [project.id] }, { user_id: user.id }
+      }.to change(ProjectFolder, :count).by(-1)
+      expect(response).to render_template(nil)
+    end
+
+  end
+
+  describe 'POST #assigned_folder' do
+
+    let(:user) { create(:user, :valid_user) }
+
+    it 'redirects anon users' do
+      post :assigned_folder
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'redirects when valid' do
+      expect {
+        post :assigned_folder, { assigned: 1 }, { user_id: user.id }
+      }.to change{ session[:organize_assigned] }
+      expect(response).to render_template('folders/_projects_list')
+    end
+
+  end
+
   describe 'GET #organize' do
 
     let(:user) { create(:user, :valid_user) }
@@ -146,8 +218,15 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects when valid' do
       expect {
-        post :create, { name: Faker::Lorem.word.titleize }, { user_id: user.id }
+        post :create, { name: 'New Name' }, { user_id: user.id }
       }.to change(Project, :count).by(1)
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'redirects anon user' do
+      expect {
+        post :create, { name: 'New Name' }, {}
+      }.to change(Project, :count).by(0)
       expect(response).to have_http_status(:redirect)
     end
 
@@ -173,7 +252,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on valid update' do
       expect {
-        put :update, { id: project.id, name: Faker::Lorem.word.titleize }, { user_id: user.id }
+        put :update, { id: project.id, name: 'Updated Name' }, { user_id: user.id }
         project.reload
       }.to change{ project.name }
       expect(response).to have_http_status(:redirect)
@@ -181,7 +260,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on invalid project' do
       expect {
-        put :update, { id: 0, name: Faker::Lorem.word.titleize }, { user_id: user.id }
+        put :update, { id: 0, name: 'Updated Name' }, { user_id: user.id }
         project.reload
       }.to_not change{ project.name }
       expect(response).to have_http_status(:redirect)
@@ -189,7 +268,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on invalid project owner' do
       expect {
-        put :update, { id: project.id, name: Faker::Lorem.word.titleize }, { user_id: user2.id }
+        put :update, { id: project.id, name: 'Updated Name' }, { user_id: user2.id }
         project.reload
       }.to_not change{ project.name }
       expect(response).to have_http_status(:redirect)
@@ -197,7 +276,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on anon user' do
       expect {
-        put :update, { id: project.id, name: Faker::Lorem.word.titleize }, {}
+        put :update, { id: project.id, name: 'Updated Name' }, {}
         project.reload
       }.to_not change{ project.name }
       expect(response).to have_http_status(:redirect)

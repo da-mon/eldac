@@ -3,9 +3,23 @@
   %table.table.table-condensed.table-hover.table-bordered.table-striped
     %thead
       %tr
-        %th Project Folders
-        %th
+        %th{ colspan: 2 } Project Folders
     %tbody
+      - unless @unfoldered_projects.nil? || @unfoldered_projects.count.zero?
+        %tr
+          %td.middle{ colspan: 2 }
+            %span.glyphicon.glyphicon-folder-open
+              %a{ href: 'javascript:;' }
+                Unfoldered
+        - @unfoldered_projects.each do |p|
+          - next if p.deleted
+          %tr
+            %td.middle.indent= p.name
+            %td.tight
+              = link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_project_path(p), type: :button, class: 'btn btn-sm btn-warning'
+              - if @current_user.is_owner?(p)
+                = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button, class: 'btn btn-sm btn-danger'
+
       - @folders.each do |f|
         - next if f.project_folders.count.zero?
         %tr
@@ -24,7 +38,7 @@
           - next if p.deleted
           %tr{ id: "f#{f.id}-p#{p.id}", style: raw(f.collapsed ? 'display:none' : '') }
             %td.middle.indent= p.name
-            %td
+            %td.tight
               = link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_project_path(p), type: :button, class: 'btn btn-sm btn-warning'
               - if @current_user.is_owner?(p)
                 = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button, class: 'btn btn-sm btn-danger'

@@ -74,7 +74,7 @@ window.checkAllProjects = ->
   return
 
 window.toggleProjectFolder = (project_id) ->
-  folder_id = $('select#folder_id').val()
+  folder_id = parseInt( $('select#folder_id').val() )
   if folder_id == 0
     return
   $('div#s_' + project_id).show()
@@ -91,10 +91,8 @@ window.toggleProjectFolder = (project_id) ->
   return
 
 window.getProjects = ->
-  folder_id = $('select#folder_id').val()
-  if folder_id == 0
-    $('#projects_list').html ''
-    return
+  folder_id = parseInt( $('select#folder_id').val() )
+  $('#projects_list').html ''
   $.ajax
     method: 'post'
     url: '/folders/organize'
