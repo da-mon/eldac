@@ -14,13 +14,13 @@ RSpec.describe SessionsController, type: :controller do
 
   describe "POST #create" do
 
-    let(:valid) { create(:user, :valid) }
+    let(:valid_user) { create(:user, :valid_user) }
     let(:invalid) { create(:user, email_valid: false) }
 
     it "returns http redirect for a valid user" do
-      post :create, email: valid.email, password: valid.password
+      post :create, email: valid_user.email, password: valid_user.password
       expect(response).to have_http_status(:redirect)
-      expect(controller.session[:user_id]).to eq(valid.id)
+      expect(controller.session[:user_id]).to eq(valid_user.id)
     end
 
     it "returns http success for an anon user" do

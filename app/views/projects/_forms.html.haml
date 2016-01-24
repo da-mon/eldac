@@ -1,0 +1,25 @@
+.panel-heading
+  %h3.panel-title Project Forms
+.panel-body
+  %table.table.table-condensed.table-hover.table-bordered.table-striped#sort
+    %thead
+      %tr
+        %th{ :colspan => "2" } Form
+    %tbody.ui-sortable
+      - @forms.each do |f|
+        %tr.hand.ui-sortable-handle#f_4
+          %td.middle
+            %span.glyphicon.glyphicon-sort>
+            \&#160; folder 1
+          %td.col-md-1
+            %a.btn.btn-sm.btn-danger{"data-method" => "delete", :href => "/folders/4", :rel => "nofollow", :type => "button"}
+              %span.glyphicon.glyphicon-remove>
+              \&#160; Delete
+      %tr#f_6.hand.ui-sortable-handle
+        %td.middle
+          %span.glyphicon.glyphicon-sort>
+          \&#160; folder 3
+        %td.col-md-1
+          %a.btn.btn-sm.btn-danger{"data-method" => "delete", :href => "/folders/6", :rel => "nofollow", :type => "button"}
+            %span.glyphicon.glyphicon-remove>
+            \&#160; Delete

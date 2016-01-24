@@ -23,6 +23,37 @@ class User < ActiveRecord::Base
 
   before_save :downcase_email
 
+  has_many :user_projects, dependent: :destroy
+  has_many :projects, :through => :user_projects
+
+  has_many :folders, ->{order 'position'}, dependent: :destroy
+  has_many :project_folders, dependent: :destroy
+
+  def is_owner?(project)
+    UserProject.where(:user => self, :project => project, :relationship => Relationship.owner).first
+  end
+
+  def assigned_projects
+    self.project_folders.collect{|pf| pf.project if (pf && !pf.project.deleted)}
+  end
+
+  def projects_in(folder)
+    self.project_folders.where(:folder => folder).collect{|pf| pf.project if (pf && !pf.project.deleted)}
+  end
+
+  def unfoldered_projects
+    projects = self.projects.where(:deleted => false)
+    unless self.project_folders.empty?
+      ids = self.project_folders.collect(&:project_id)
+      projects = projects.where.not(id: ids) unless ids.empty?
+    end
+    projects.collect{|p|p}
+  end
+
+  def undeleted_projects
+    self.projects.where(:deleted => false).collect{|p|p}
+  end
+
   def fullname
     "#{self.fname} #{self.lname}"
   end

@@ -1,11 +1,18 @@
 Rails.application.routes.draw do
 
-  resources :records
-
-  resources :projects do
-    get :organize, on: :collection
+  resources :folders do
+    post :organize, on: :collection
+    post :save_sort, on: :collection
+    post :toggle_collapse, on: :collection
   end
-
+  resources :projects do
+    get :ask_delete, on: :member
+    get :organize, on: :collection
+    post :toggle_folder, on: :collection
+    post :checkall_folder, on: :collection
+    post :assigned_folder, on: :collection
+  end
+  resources :records
   resources :users
 
   get    'login' => 'sessions#new'

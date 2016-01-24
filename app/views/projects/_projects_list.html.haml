@@ -1,0 +1,15 @@
+
+- unless @projects.count.zero?
+  %table.table.table-condensed.table-hover.table-bordered.table-striped
+    %thead
+      %tr
+        %th Projects
+        %th &#160;
+    %tbody
+      - @projects.each do |p|
+        %tr
+          %td.middle= p.name
+          %td
+            = link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_project_path(p), type: :button, class: 'btn btn-sm btn-warning'
+            - if @current_user.is_owner?(p)
+              = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button, class: 'btn btn-sm btn-danger'

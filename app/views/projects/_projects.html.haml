@@ -1,0 +1,20 @@
+
+%div
+  .panel.panel-default
+    .panel-body
+      .form-group
+        %label.control-label{ for: :folder }
+          Choose Folder
+        %select.form-control#folder_id{ name: :folder_id }
+          %option{ value: 0 }
+          - @folders.each do |f|
+            - if f.id == session[:organize_folder_id]
+              %option{ value: f.id, selected: :selected }
+                = f.name
+            - else
+              %option{ value: f.id }
+                = f.name
+      #projects_list
+
+%script{ type: 'text/javascript' }
+  $(function(){ getProjects() });

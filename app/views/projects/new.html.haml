@@ -1,17 +1,14 @@
-
 .h3.page-header.hidden-xs
   = link_to 'Projects', projects_path
   = dl
   New Project
-
 .panel.panel-default
   .panel-heading
     .h3.panel-title Project Info
   .panel-body
-    = form_for @project do |f|
+    = form_for @project do
       = render 'form'
-
       .form-group
-        %button.btn.btn-success{type: :submit}
-          %span.glyphicon.glyphicon-share-alt
-          &nbsp; Create Project
+        %button.btn.btn-success{ type: :submit }
+          = sg('share-alt')
+          &nbsp;Create Project

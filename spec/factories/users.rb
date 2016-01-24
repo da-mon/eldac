@@ -12,8 +12,10 @@ FactoryGirl.define do
     password 'changeme'
     password_confirmation 'changeme'
 
-    trait :valid do
-      email 'valid@example.com'
+    trait :valid_user do
+      fname { Faker::Name.first_name }
+      lname { Faker::Name.last_name }
+      email { Faker::Internet.email }
     end
 
   end

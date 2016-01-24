@@ -1,0 +1,21 @@
+
+%label.control-label{:for => "folder"}
+  Assign Projects to #{@folder.name}
+
+%table.table.table-condensed.table-hover.table-bordered.table-striped
+  %thead
+    %tr
+      %th.col-md-1.center= check_box_tag "checkall", session[:organize_check_all] == 1
+      %th
+        .right
+          = check_box_tag 'assigned', '1', session[:organize_assigned] == 1, {}
+          Show Assigned
+        Project
+  %tbody
+    - @projects.each do |p|
+      %tr
+        %td.col-md-1.center= check_box_tag "p_#{p.id}", p.id, ProjectFolder.should_be_checked(@project_folders, session[:organize_folder_id], p), {}
+        %td
+          .right{ id: "s_#{p.id}", style: 'display:none' }
+            Saved!
+          = p.name

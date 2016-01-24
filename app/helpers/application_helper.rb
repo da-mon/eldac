@@ -13,6 +13,10 @@ module ApplicationHelper
     '➤'
   end
 
+  def sg(glyph)
+    raw "<span class=\"glyphicon glyphicon-#{glyph}\"></span>"
+  end
+
   def glyph(sym)
     icons = {
       :records  => 'th-list',
@@ -26,8 +30,8 @@ module ApplicationHelper
     %w(projects records).each do |m|
       active, span = '', ''
       if request.original_fullpath.include? m
-	active = ' class="active"'
-	span = ' <span class="sr-only">(current)</span>'
+        active = ' class="active"'
+	      span = ' <span class="sr-only">(current)</span>'
       end
       link = link_to raw("<span class='glyphicon glyphicon-#{glyph(m)}' aria-hidden='true'></span> &nbsp;#{m.titleize}#{span}"), send("#{m}_path")
       html << "<li#{active}>#{link}</li>"

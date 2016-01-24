@@ -1,0 +1,32 @@
+
+%div
+  .panel.panel-default
+    .panel-body
+      = form_for @folder, html: { class: 'form-inline' } do
+        - if @folder.errors[:name].empty?
+          .form-group
+            %input.form-control#name{ name: :name, placeholder: 'Name', type: :text, value: @folder.name }
+            %button.btn.btn-success{ type: :submit }
+              = raw("#{sg 'share-alt'} Create New Folder")
+          %p
+            &nbsp;
+        - else
+          .form-group.has-error.has-feedback
+            %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :name, placeholder: 'Name', type: :text, value: @folder.name }
+            %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
+          \&#160;
+          %button.btn.btn-success{ type: :submit }
+            = "#{sg 'share-alt'} Create New Folder"
+          %span.sr-only#nameErrorStatus (error)
+          %span.help-block= @folder.errors[:name].first
+      - unless @folders.count.zero?
+        %table.table.table-condensed.table-hover.table-bordered.table-striped#sort
+          %thead
+            %tr
+              %th{ colspan: 2 } Folder
+          %tbody
+            - @folders.each do |f|
+              %tr.hand{ id: "f_#{f.id}" }
+                %td.middle
+                  = raw("#{sg 'sort'} #{f.name}")
+                %td.col-md-1= link_to raw("#{sg 'remove'} &nbsp;Delete"), folder_path(f), method: :delete, type: :button, class: 'btn btn-sm btn-danger'

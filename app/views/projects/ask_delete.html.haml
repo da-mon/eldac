@@ -1,0 +1,11 @@
+%h3.page-header.hidden-xs
+  = link_to 'Projects', projects_path
+  = dl
+  Delete Project
+%div
+  %p
+    Are you sure you want to delete your project
+    %b= @project.name
+    ?
+    %p &nbsp;
+    = link_to raw("#{sg('remove')} &nbsp;Delete Project"), project_path(@project), { method: :delete, :type => 'button', :class => 'btn btn-sm btn-danger'}

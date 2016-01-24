@@ -1,0 +1,13 @@
+
+%h3.page-header.hidden-xs
+  = link_to 'Projects', projects_path
+  = dl
+  Organize Projects
+
+%div
+  .row
+    .col-md-6
+      = render 'projects/folders'
+    .col-md-6
+      - unless @folders.count.zero?
+        = render 'projects/projects'
