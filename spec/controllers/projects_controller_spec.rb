@@ -3,6 +3,24 @@ require 'rails_helper'
 
 RSpec.describe ProjectsController, type: :controller do
 
+  describe 'GET #organize' do
+
+    let(:user) { create(:user, :valid_user) }
+
+    it 'redirects anon users' do
+      get :organize
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'valid user returns http success' do
+      get :organize, {}, { user_id: user.id }
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:organize)
+      expect(response).to render_template(:main)
+    end
+
+  end
+
   describe 'GET #index' do
 
     let(:user) { create(:user, :valid_user) }
@@ -86,7 +104,7 @@ RSpec.describe ProjectsController, type: :controller do
     let(:user2) { create(:user, :valid_user) }
     let(:project) { create(:project, :valid_project) }
     let(:owner) { create(:relationship, name: 'owner') }
-    let!(:user_project ) { create(:user_project, user: user, project: project, relationship: owner) }
+    let!(:user_project) { create(:user_project, user: user, project: project, relationship: owner) }
 
     it 'redirects anon users' do
       get :ask_delete, { id: 0 }
@@ -137,16 +155,85 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe 'PUT #update' do
 
-    it 'returns http success' do
+    let(:user) { create(:user, :valid_user) }
+    let(:project) { create(:project, :valid_project) }
+    let(:owner) { create(:relationship, name: 'owner') }
+    let!(:user_project) { create(:user_project, user: user, project: project, relationship: owner) }
+    let(:user2) { create(:user, :valid_user) }
 
+    it 'renders form on invalid update' do
+      expect {
+        put :update, { id: project.id, name: '' }, { user_id: user.id }
+        project.reload
+      }.to_not change{ project.name }
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:edit)
+      expect(response).to render_template(:main)
+    end
+
+    it 'redirects on valid update' do
+      expect {
+        put :update, { id: project.id, name: Faker::Lorem.word.titleize }, { user_id: user.id }
+        project.reload
+      }.to change{ project.name }
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'redirects on invalid project' do
+      expect {
+        put :update, { id: 0, name: Faker::Lorem.word.titleize }, { user_id: user.id }
+        project.reload
+      }.to_not change{ project.name }
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'redirects on invalid project owner' do
+      expect {
+        put :update, { id: project.id, name: Faker::Lorem.word.titleize }, { user_id: user2.id }
+        project.reload
+      }.to_not change{ project.name }
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'redirects on anon user' do
+      expect {
+        put :update, { id: project.id, name: Faker::Lorem.word.titleize }, {}
+        project.reload
+      }.to_not change{ project.name }
+      expect(response).to have_http_status(:redirect)
     end
 
   end
 
   describe 'DELETE #destroy' do
 
-    it 'returns http success' do
+    let(:user) { create(:user, :valid_user) }
+    let(:project) { create(:project, :valid_project) }
+    let(:owner) { create(:relationship, name: 'owner') }
+    let!(:user_project) { create(:user_project, user: user, project: project, relationship: owner) }
+    let(:user2) { create(:user, :valid_user) }
 
+    it 'redirects on valid project owner' do
+      expect {
+        delete :destroy, { id: project.id }, { user_id: user.id }
+        project.reload
+      }.to change{ project.deleted }
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'redirects on invalid project owner' do
+      expect {
+        delete :destroy, { id: project.id }, { user_id: user2.id }
+        project.reload
+      }.to change(Project, :count).by(0)
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'redirects on anon user' do
+      expect {
+        delete :destroy, { id: project.id }, {}
+      }.to change(Project, :count).by(0)
+      expect(response).to have_http_status(:redirect)
     end
 
   end
