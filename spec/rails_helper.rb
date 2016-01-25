@@ -5,7 +5,19 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
-require 'capybara/rails'
+
+if ENV['SELENIUM'] == 'true'
+  if ENV['CHROME'] == 'true'
+    Capybara.register_driver :chrome do |app|
+      Capybara::Selenium::Driver.new(app, :browser => :chrome)
+    end
+    Capybara.javascript_driver = :chrome
+  else
+    Capybara.javascript_driver = :selenium
+  end
+else
+  Capybara.javascript_driver = :webkit
+end
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -46,11 +58,11 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
-  
+
   config.before(:each, :js => true) do
     DatabaseCleaner.strategy = :truncation
   end
-  
+
   config.before(:each) do
     DatabaseCleaner.start
   end
