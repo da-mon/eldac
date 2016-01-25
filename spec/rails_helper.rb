@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 
 if ENV['SELENIUM'] == 'true'
+  Capybara.default_max_wait_time = 5
   if ENV['CHROME'] == 'true'
     Capybara.register_driver :chrome do |app|
       Capybara::Selenium::Driver.new(app, :browser => :chrome)

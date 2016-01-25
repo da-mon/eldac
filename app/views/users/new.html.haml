@@ -62,7 +62,7 @@
               %span#password_confirmationErrorStatus.sr-only (error)
               %span.help-block= @user.errors[:password_confirmation].first
           .form-group
-            %button.btn.btn-danger{:type => 'submit'}
+            %button.btn.btn-danger{ type: :submit, id: :submit }
               %span.glyphicon.glyphicon-plus-sign>
               \&nbsp; Signup
   .col-md-3
