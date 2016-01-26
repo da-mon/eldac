@@ -17,7 +17,6 @@
               %label.control-label{:for => "password"} Password
               %input#password.form-control{:name => "password", :placeholder => "Password", :type => "password", :value => ""}/
             .form-group
-              %button.btn.btn-danger{:type => "submit"}
-                %span.glyphicon.glyphicon-log-in>
-                \&nbsp; Login
+              %button.btn.btn-danger{ type: :submit, id: :submit }
+                = raw "#{sg('log-in')} &nbsp;Login"
   .col-md-3

@@ -1,7 +1,7 @@
 
 require 'rails_helper'
 
-describe "using the user controller", :type => :feature do
+describe "using the users controller", :type => :feature do
 
   it 'signup a new user account', :js => true do
     expect {
