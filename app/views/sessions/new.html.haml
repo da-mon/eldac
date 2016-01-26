@@ -2,20 +2,20 @@
   .col-md-3
   .col-md-6
     - if @validate_email_link
-      %p= link_to 'Re-validate Email »', revalidate_path, :class => 'btn btn-danger'
+      %p= link_to 'Re-validate Email »', revalidate_path, class: 'btn btn-danger'
     .panel.panel-default
       .panel-heading
         %h3.panel-title Login
       .panel-body
-        %form{:action => "/login", :method => "post"}
-          %input{:name => "utf8", :type => "hidden", :value => "✓"}
+        %form{ action: login_path, method: :post }
+          %input{ name: :utf8, type: :hidden, value: '✓' }
             = hidden_field_tag :authenticity_token, form_authenticity_token
             .form-group
-              %label.control-label{:for => "email"} Email
-              %input#email.form-control{:name => "email", :placeholder => "Email", :type => "email", :value => params.try(:email)}/
+              %label.control-label{ for: :email } Email
+              %input#email.form-control{ name: :email, placeholder: 'Email', type: :email, value: params.try(:email) }
             .form-group
-              %label.control-label{:for => "password"} Password
-              %input#password.form-control{:name => "password", :placeholder => "Password", :type => "password", :value => ""}/
+              %label.control-label{ for: :password } Password
+              %input#password.form-control{ name: :password, placeholder: 'Password', type: :password, value: '' }
             .form-group
               %button.btn.btn-danger{ type: :submit, id: :submit }
                 = raw "#{sg('log-in')} &nbsp;Login"
