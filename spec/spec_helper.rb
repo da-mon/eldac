@@ -1,5 +1,7 @@
-require 'simplecov'
-SimpleCov.start 'rails'
+if ENV['COVERAGE'] == 'true'
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
 
 RSpec.configure do |config|
 
