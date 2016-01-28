@@ -15,9 +15,9 @@ Rails.application.routes.draw do
   resources :records
   resources :users
 
-  get    'login' => 'sessions#new'
-  post   'login' => 'sessions#create'
-  get    'logout' => 'sessions#destroy'
+  get  'login'  => 'sessions#new'
+  post 'login'  => 'sessions#create'
+  get  'logout' => 'sessions#destroy'
 
   get 'about'   => 'home#about'
   get 'contact' => 'home#contact'
