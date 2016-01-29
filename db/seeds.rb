@@ -11,7 +11,7 @@
   Relationship.create!(:name => n)
 }
 
-User.create!(
+user = User.create!(
   :fname => 'Greg',
   :lname => 'Donald',
   :email => 'gdonald@gmail.com',
@@ -19,3 +19,20 @@ User.create!(
   :password_confirmation => 'changeme',
   :email_valid => true
 )
+
+37.times do
+  p = Project.create!( name: Faker::Name.title )
+  UserProject.create!( user: user, project: p, relationship: Relationship.owner )
+end
+
+5.times do
+  f = Folder.create!( user: user, name: Faker::Name.last_name, collapsed: true )
+  UserProject.where( user: user ).each do |up|
+    ProjectFolder.create!( user: user, project: up.project, folder: f ) if (up.id + f.id) % 2 == 0
+  end
+end
+
+4.times do
+  p = Project.create!( name: Faker::Name.title )
+  UserProject.create!( user: user, project: p, relationship: Relationship.owner )
+end
