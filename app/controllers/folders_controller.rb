@@ -4,6 +4,10 @@ class FoldersController < ApplicationController
 
   layout 'main'
 
+  def edit
+    @folder = @current_user.folders.where( id: params[:id] ).first
+  end
+
   def toggle_collapse
     @folder = @current_user.folders.where(:id => params[:id]).first
     @folder.collapsed = !@folder.collapsed

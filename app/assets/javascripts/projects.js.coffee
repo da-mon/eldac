@@ -1,4 +1,15 @@
 
+window.editFolder = (id) ->
+  $.ajax
+    method: 'get'
+    url: '/folders/' + id + '/edit'
+    # data: assigned: if assigned then '1' else '0'
+    # success: (result) ->
+    #   $('#projects_list').html result
+    #   rebindControls()
+    #   return
+  return
+
 window.toggleFolderCollapse = (id) ->
   visible = $('span#fc-' + id).is(':visible')
   if visible
@@ -136,8 +147,14 @@ $ ->
   $('input:checkbox[id^="assigned"]').click ->
     getProjects()
     return
+
   $('select#folder_id').change ->
     getProjects()
     return
+
+  $('a[id^="f_"]').each ->
+      $($(this)).click ->
+        editFolder $(this).attr('id').split('_')[1]
+        return
 
   return

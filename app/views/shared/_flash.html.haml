@@ -1,9 +1,9 @@
 
 - if flash[:notice]
   :javascript
-    doModal('noticeModal', 'Notice', "#{flash[:notice]}", 'Close', 'warning')
+    doModal('noticeModal', 'Notice', "<p>#{flash[:notice]}</p>", 'Close', 'warning')
   - flash[:notice] = nil
 - if flash[:error]
   :javascript
-    doModal('errorModal', 'Error', "#{flash[:error]}", 'Close', 'danger')
+    doModal('errorModal', 'Error', "<p>#{flash[:error]}</p>", 'Close', 'danger')
   - flash[:error] = nil

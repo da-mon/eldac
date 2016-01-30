@@ -8,7 +8,7 @@ window.doModal = (id, title, content, closeBtnTitle, closeBtnClass) ->
   html += '<h4 class="modal-title">' + title + '</h4>'
   html += '</div>'
   html += '<div class="modal-body">'
-  html += '<p>' + content + '</p>'
+  html += content
   html += '</div>'
   html += '<div class="modal-footer">'
   html += '<button type="button" class="btn btn-default btn-' + closeBtnClass + '" data-dismiss="modal">' + closeBtnTitle + '</button>'

@@ -1,0 +1,45 @@
+
+.modal.fade{ id: "fm_#{ @folder.id }", role: :dialog, tabindex: -1 }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ 'aria-label' => 'Close', 'data-dismiss' => :modal, type: :button }
+          %span{ 'aria-hidden' => :true } &#215;
+        %h4.modal-title Update Folder
+      .modal-body
+        - if @folder.errors[:name].empty?
+          .form-group
+            %label.control-label{ for: :name } Name
+            %input.form-control{ type: :text, id: :name, name: :name, placeholder: 'Name', value: @folder.try(:name) }
+        - else
+          .form-group.has-error.has-feedback
+            %label.control-label{ for: :name } Name
+            %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :name, placeholder: 'Name', type: :text, value: @folder.name }
+            %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
+            %span.sr-only#nameErrorStatus (error)
+            %span.help-block= @folder.errors[:name].first
+        - if @folder.errors[:fg].empty?
+          .form-group
+            %label.control-label{ for: :fg } Foreground
+            %input.form-control{ type: :text, id: :fg, name: :fg, placeholder: '000000', value: @folder.try(:fg) }
+        - else
+          .form-group.has-error.has-feedback
+            %label.control-label{ for: :fg } Foreground
+            %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :fg, placeholder: '#000000', type: :text, value: @folder.fg }
+            %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
+            %span.sr-only#nameErrorStatus (error)
+            %span.help-block= @folder.errors[:fg].first
+        - if @folder.errors[:bg].empty?
+          .form-group
+            %label.control-label{ for: :bg } Background
+            %input.form-control{ type: :text, id: :bg, name: :bg, placeholder: '000000', value: @folder.try(:bg) }
+        - else
+          .form-group.has-error.has-feedback
+            %label.control-label{ for: :bg } Background
+            %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :bg, placeholder: '#000000', type: :text, value: @folder.bg }
+            %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
+            %span.sr-only#nameErrorStatus (error)
+            %span.help-block= @folder.errors[:bg].first
+      .modal-footer
+        %button.btn.btn-default{ 'data-dismiss' => :modal, type: :button } #{sg 'remove'} &nbsp;Close
+        %button.btn.btn-primary{ type: :button } #{sg 'share-alt'} &nbsp;Save changes
