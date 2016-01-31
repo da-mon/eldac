@@ -2,12 +2,17 @@
 
 %h3.page-header.hidden-xs Projects
 
-%p
-  = link_to raw("#{sg 'plus'}&nbsp; New Project"), new_project_path, type: 'button', class: 'btn btn-success'
-  - unless @projects_count.zero?
-    = link_to raw("#{sg 'wrench'}&nbsp; Organize Projects"), organize_projects_path, type: 'button', class: 'btn btn-info'
-
-- if @projects
-  = render 'projects/projects_list'
-- elsif @folders
-  = render 'projects/folders_list'
+%div
+  .row
+    .col-md-12
+      %div
+        .panel.panel-default
+          .panel-body
+            %p
+              = link_to raw("#{sg 'plus'}&nbsp; New Project"), new_project_path, type: 'button', class: 'btn btn-success'
+              - unless @projects_count.zero?
+                = link_to raw("#{sg 'wrench'}&nbsp; Organize Projects"), organize_projects_path, type: 'button', class: 'btn btn-info'
+            - if @projects
+              = render 'projects/projects_list'
+            - elsif @folders
+              = render 'projects/folders_list'

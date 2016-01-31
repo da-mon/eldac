@@ -29,7 +29,7 @@
             - @folders.each do |f|
               %tr.hand{ id: "f_#{f.id}" }
                 %td.middle{ style: f.td_style }
-                  = raw("#{sg 'sort'} #{f.name}")
+                  = raw(" &nbsp;#{sg 'sort'} &nbsp;#{f.name}")
                 %td.tight= link_to raw("#{sg 'pencil'} &nbsp;Edit"), 'javascript:;', id: "f_#{f.id}", type: :button,
                                     class: 'btn btn-sm btn-warning'
                 %td.tight= link_to raw("#{sg 'remove'} &nbsp;Delete"), 'javascript:;', id: "adf_#{f.id}", type: :button,

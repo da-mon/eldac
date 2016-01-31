@@ -20,11 +20,12 @@
             %td.tight
               = link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_project_path(p), type: :button, class: 'btn btn-sm btn-warning'
               - if @current_user.is_owner?(p)
-                = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button, class: 'btn btn-sm btn-danger'
+                = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button,
+                          class: 'btn btn-sm btn-danger'
 
       - @folders.each do |f|
         - next if f.project_folders.count.zero?
-        %tr
+        %tr.lh32
           %td.middle{ colspan: 2, style: f.td_style }
             %b
               &nbsp;
@@ -41,9 +42,10 @@
           - p = pf.project
           - next if p.deleted
           %tr{ id: "f#{f.id}-p#{p.id}", style: raw(f.collapsed ? 'display:none' : '') }
-            %td.middle.indent{ style: f.td_sub_style }
-              = p.name
+            %td.middle.indent{ style: f.td_style }
+              = link_to p.name, edit_project_path(p), style: f.a_style
             %td.tight
               = link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_project_path(p), type: :button, class: 'btn btn-sm btn-warning'
               - if @current_user.is_owner?(p)
-                = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button, class: 'btn btn-sm btn-danger'
+                = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button,
+                          class: 'btn btn-sm btn-danger'

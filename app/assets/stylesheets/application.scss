@@ -134,3 +134,8 @@ table.table tbody td.tight
     width: 1%;
     white-space: nowrap;
 }
+
+table.table tbody tr.lh32 td
+{
+    line-height: 32px;
+}

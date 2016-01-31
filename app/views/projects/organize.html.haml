@@ -12,7 +12,9 @@
       - unless @folders.count.zero?
         = render 'projects/projects'
 
-- if params[:show].present?
-  - if params[:show] == 'edit_folder'
+- if session[:show].present?
+  - if session[:show] == 'edit_folder'
     :javascript
-      $( function(){ editFolder(#{params[:id]}) } );
+      $( function(){ editFolder(#{session[:id]}) } );
+    - session[:show] = nil
+    - session[:id] = nil

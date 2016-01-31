@@ -60,7 +60,9 @@ class FoldersController < ApplicationController
   def create
     @folder = Folder.create(folder_params)
     if @folder.valid?
-      redirect_to organize_projects_path(show: :edit_folder, id: @folder.id)
+      session[:show] = 'edit_folder'
+      session[:id] = @folder.id
+      redirect_to organize_projects_path
       return false
     end
     @projects = @current_user.undeleted_projects

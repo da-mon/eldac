@@ -1,5 +1,5 @@
 class Folder < ActiveRecord::Base
-  include Colors
+  include Colorful
 
   belongs_to :user
   acts_as_list :scope => :user
@@ -13,11 +13,7 @@ class Folder < ActiveRecord::Base
   validates :bg, presence: true, length: {is: 6}
 
   def td_style
-    'color: #' << fg << '; background: #' << bg
-  end
-
-  def td_sub_style
-    'color: #' << fg << ';' << bg_css(bg, diff(bg, 0.9))
+    'color: #' << fg << ';' << Folder.bg_css(bg, Folder.diff(bg, 0.9))
   end
 
   def a_style
