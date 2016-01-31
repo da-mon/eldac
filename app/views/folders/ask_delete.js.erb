@@ -1,0 +1,2 @@
+$('body').append("<%= escape_javascript( render( partial: 'folders/ask_delete', locals: { folder: @folder } ) ) %>");
+$('#adm_<%= @folder.id %>').modal();

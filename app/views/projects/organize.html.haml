@@ -11,3 +11,8 @@
     .col-md-6
       - unless @folders.count.zero?
         = render 'projects/projects'
+
+- if params[:show].present?
+  - if params[:show] == 'edit_folder'
+    :javascript
+      $( function(){ editFolder(#{params[:id]}) } );

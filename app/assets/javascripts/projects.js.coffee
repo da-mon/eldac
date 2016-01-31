@@ -1,13 +1,14 @@
 
+window.askDeleteFolder = (id) ->
+  $.ajax
+    method: 'get'
+    url: '/folders/' + id + '/ask_delete'
+  return
+
 window.editFolder = (id) ->
   $.ajax
     method: 'get'
     url: '/folders/' + id + '/edit'
-    # data: assigned: if assigned then '1' else '0'
-    # success: (result) ->
-    #   $('#projects_list').html result
-    #   rebindControls()
-    #   return
   return
 
 window.toggleFolderCollapse = (id) ->
@@ -151,6 +152,11 @@ $ ->
   $('select#folder_id').change ->
     getProjects()
     return
+
+  $('a[id^="adf_"]').each ->
+      $($(this)).click ->
+        askDeleteFolder $(this).attr('id').split('_')[1]
+        return
 
   $('a[id^="f_"]').each ->
       $($(this)).click ->

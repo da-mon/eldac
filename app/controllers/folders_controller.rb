@@ -4,6 +4,15 @@ class FoldersController < ApplicationController
 
   layout 'main'
 
+  def update
+    @folder = @current_user.folders.where( id: params[:id] ).first
+    @folder.update(folder_params) if @folder
+  end
+
+  def ask_delete
+    @folder = @current_user.folders.where( id: params[:id] ).first
+  end
+
   def edit
     @folder = @current_user.folders.where( id: params[:id] ).first
   end
@@ -42,15 +51,16 @@ class FoldersController < ApplicationController
 
   def destroy
     @folder = @current_user.folders.where(id: params[:id]).first
-    @folder.destroy if @folder
-    redirect_to organize_projects_path
-    return false
+    if @folder
+      @id = @folder.id
+      @folder.destroy
+    end
   end
 
   def create
     @folder = Folder.create(folder_params)
     if @folder.valid?
-      redirect_to organize_projects_path
+      redirect_to organize_projects_path(show: :edit_folder, id: @folder.id)
       return false
     end
     @projects = @current_user.undeleted_projects
@@ -62,7 +72,7 @@ class FoldersController < ApplicationController
   private
 
   def folder_params
-    params.permit(:name).merge(:user => @current_user)
+    params.permit(:id, :name, :fg, :bg).merge(:user => @current_user)
   end
 
 end

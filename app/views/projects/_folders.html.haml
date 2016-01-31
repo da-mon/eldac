@@ -7,16 +7,17 @@
           .form-group
             %input.form-control#name{ name: :name, placeholder: 'Name', type: :text, value: @folder.name }
             %button.btn.btn-success{ type: :submit }
-              = raw("#{sg 'share-alt'} Create New Folder")
+              #{sg 'share-alt'} Create New Folder
           %p
             &nbsp;
         - else
           .form-group.has-error.has-feedback
-            %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :name, placeholder: 'Name', type: :text, value: @folder.name }
+            %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :name, placeholder: 'Name', type: :text,
+                                      value: @folder.name }
             %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
           \&#160;
           %button.btn.btn-success{ type: :submit }
-            = "#{sg 'share-alt'} Create New Folder"
+            #{sg 'share-alt'} Create New Folder
           %span.sr-only#nameErrorStatus (error)
           %span.help-block= @folder.errors[:name].first
       - unless @folders.count.zero?
@@ -27,7 +28,9 @@
           %tbody
             - @folders.each do |f|
               %tr.hand{ id: "f_#{f.id}" }
-                %td.middle
+                %td.middle{ style: f.td_style }
                   = raw("#{sg 'sort'} #{f.name}")
-                %td.tight= link_to raw("#{sg 'pencil'} &nbsp;Edit"), 'javascript:;', id: "f_#{f.id}", type: :button, class: 'btn btn-sm btn-warning'
-                %td.tight= link_to raw("#{sg 'remove'} &nbsp;Delete"), folder_path(f), method: :delete, type: :button, class: 'btn btn-sm btn-danger'
+                %td.tight= link_to raw("#{sg 'pencil'} &nbsp;Edit"), 'javascript:;', id: "f_#{f.id}", type: :button,
+                                    class: 'btn btn-sm btn-warning'
+                %td.tight= link_to raw("#{sg 'remove'} &nbsp;Delete"), 'javascript:;', id: "adf_#{f.id}", type: :button,
+                                    class: 'btn btn-sm btn-danger'

@@ -1,3 +1,2 @@
-var html = "<%= escape_javascript( render( partial: 'folders/edit' ) ) %>";
-$('body').append(html);
+$('body').append("<%= escape_javascript( render( partial: 'folders/edit', locals: { folder: @folder } ) ) %>");
 $('#fm_<%= @folder.id %>').modal();

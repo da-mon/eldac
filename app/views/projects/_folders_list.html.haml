@@ -8,9 +8,11 @@
       - unless @unfoldered_projects.nil? || @unfoldered_projects.count.zero?
         %tr
           %td.middle{ colspan: 2 }
+            &nbsp;
             %span.glyphicon.glyphicon-folder-open
-              %a{ href: 'javascript:;' }
-                Unfoldered
+              %b
+                %a{ href: 'javascript:;', style: 'text-decoration: none; color: #000' }
+                  Unfoldered
         - @unfoldered_projects.each do |p|
           - next if p.deleted
           %tr
@@ -23,21 +25,24 @@
       - @folders.each do |f|
         - next if f.project_folders.count.zero?
         %tr
-          %td.middle{ colspan: 2 }
-            - if f.collapsed
-              %span.glyphicon.glyphicon-folder-close{ id: "fc-#{f.id}" }
-              %span.glyphicon.glyphicon-folder-open{ id: "fo-#{f.id}", style: 'display:none' }
-            - else
-              %span.glyphicon.glyphicon-folder-close{ id: "fc-#{f.id}", style: 'display:none' }
-              %span.glyphicon.glyphicon-folder-open{ id: "fo-#{f.id}" }
-            &nbsp;
-            %a{ href: 'javascript:;', onclick: "javascript:toggleFolderCollapse(#{f.id});" }
-              = f.name
+          %td.middle{ colspan: 2, style: f.td_style }
+            %b
+              &nbsp;
+              - if f.collapsed
+                %span.glyphicon.glyphicon-folder-close{ id: "fc-#{f.id}" }
+                %span.glyphicon.glyphicon-folder-open{ id: "fo-#{f.id}", style: 'display:none' }
+              - else
+                %span.glyphicon.glyphicon-folder-close{ id: "fc-#{f.id}", style: 'display:none' }
+                %span.glyphicon.glyphicon-folder-open{ id: "fo-#{f.id}" }
+              &nbsp;
+              %a{ href: 'javascript:;', onclick: "javascript:toggleFolderCollapse(#{f.id});", style: f.a_style }
+                = f.name
         - f.project_folders.each do |pf|
           - p = pf.project
           - next if p.deleted
           %tr{ id: "f#{f.id}-p#{p.id}", style: raw(f.collapsed ? 'display:none' : '') }
-            %td.middle.indent= p.name
+            %td.middle.indent{ style: f.td_sub_style }
+              = p.name
             %td.tight
               = link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_project_path(p), type: :button, class: 'btn btn-sm btn-warning'
               - if @current_user.is_owner?(p)

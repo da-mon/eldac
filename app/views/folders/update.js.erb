@@ -1,0 +1,4 @@
+<% if @folder.valid? -%>
+$('#fm_<%= @folder.id %>').modal('hide');
+location.reload(true);
+<% end -%>
