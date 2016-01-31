@@ -20,19 +20,16 @@ user = User.create!(
   :email_valid => true
 )
 
-37.times do
+17.times do
   p = Project.create!( name: Faker::Name.title )
   UserProject.create!( user: user, project: p, relationship: Relationship.owner )
 end
 
-5.times do
-  f = Folder.create!( user: user, name: Faker::Name.last_name, collapsed: true )
+fg = %w(000000 ffffff ffffff ffffff ffffff ffffff)
+bg = %w(ffffff 337ab7 5cb85c 5bc0de f0ad4e d9534f)
+6.times do |x|
+  f = Folder.create!( user: user, name: Faker::Name.last_name, collapsed: true, fg: fg[x], bg: bg[x] )
   UserProject.where( user: user ).each do |up|
     ProjectFolder.create!( user: user, project: up.project, folder: f ) if (up.id + f.id) % 2 == 0
   end
-end
-
-4.times do
-  p = Project.create!( name: Faker::Name.title )
-  UserProject.create!( user: user, project: p, relationship: Relationship.owner )
 end
