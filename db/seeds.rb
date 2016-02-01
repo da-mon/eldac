@@ -33,3 +33,7 @@ bg = %w(ffffff 337ab7 5cb85c 5bc0de f0ad4e d9534f)
     ProjectFolder.create!( user: user, project: up.project, folder: f ) if (up.id + f.id) % 2 == 0
   end
 end
+
+3.times do
+  f = Form.create!( project: Project.first, name: Faker::Name.last_name )
+end

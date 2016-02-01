@@ -36,6 +36,8 @@ class ProjectsController < ApplicationController
       redirect_to projects_path
       return false
     end
+    @forms = @project.forms
+    @form = Form.new
   end
 
   def update

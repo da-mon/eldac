@@ -126,8 +126,8 @@ window.projectsAllChecked = ->
     return
   r
 
-window.saveFolderSort = ->
-  order = $('#sort tbody').sortable('serialize')
+window.saveFoldersSort = ->
+  order = $('#sort_folders tbody').sortable('serialize')
   $.ajax
     method: 'post'
     url: '/folders/save_sort'
@@ -135,14 +135,30 @@ window.saveFolderSort = ->
     success: (result) ->
   return
 
+window.saveFormsSort = ->
+  order = $('#sort_forms tbody').sortable('serialize')
+  $.ajax
+    method: 'post'
+    url: '/forms/save_sort'
+    data: order: order
+    success: (result) ->
+  return
+
 
 $ ->
 
-  $('#sort tbody').sortable
+  $('#sort_folders tbody').sortable
     cursor: 'move'
     opacity: 0.7
     update: (e, ui) ->
-      saveFolderSort()
+      saveFoldersSort()
+      return
+
+  $('#sort_forms tbody').sortable
+    cursor: 'move'
+    opacity: 0.7
+    update: (e, ui) ->
+      saveFormsSort()
       return
 
   $('input:checkbox[id^="assigned"]').click ->

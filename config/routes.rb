@@ -6,13 +6,19 @@ Rails.application.routes.draw do
     post :save_sort, on: :collection
     post :toggle_collapse, on: :collection
   end
+
   resources :projects do
     get :ask_delete, on: :member
     get :organize, on: :collection
     post :toggle_folder, on: :collection
     post :checkall_folder, on: :collection
     post :assigned_folder, on: :collection
+    
+    resources :forms do
+      post :save_sort, on: :collection
+    end
   end
+
   resources :records
   resources :users
 
