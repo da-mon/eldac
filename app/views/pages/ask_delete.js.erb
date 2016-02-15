@@ -1,0 +1,4 @@
+<% if @page -%>
+$('body').append("<%= escape_javascript( render( partial: 'pages/ask_delete', locals: { page: @page } ) ) %>");
+$('#adm_<%= @page.id %>').modal();
+<% end -%>

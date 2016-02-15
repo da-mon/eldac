@@ -43,18 +43,16 @@ ActiveRecord::Schema.define(version: 18) do
   create_table "fields", force: :cascade do |t|
     t.integer "section_id"
     t.integer "field_type_id"
-    t.string  "title",         limit: 64
     t.string  "name",          limit: 64
     t.string  "default",       limit: 255
     t.integer "position",                  default: 0, null: false
   end
 
-  add_index "fields", ["field_type_id", "name"], name: "index_fields_on_field_type_id_and_name", unique: true, using: :btree
   add_index "fields", ["field_type_id"], name: "index_fields_on_field_type_id", using: :btree
   add_index "fields", ["name"], name: "index_fields_on_name", using: :btree
   add_index "fields", ["position"], name: "index_fields_on_position", using: :btree
+  add_index "fields", ["section_id", "name"], name: "index_fields_on_section_id_and_name", unique: true, using: :btree
   add_index "fields", ["section_id"], name: "index_fields_on_section_id", using: :btree
-  add_index "fields", ["title"], name: "index_fields_on_title", using: :btree
 
   create_table "folders", force: :cascade do |t|
     t.integer "user_id"

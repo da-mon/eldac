@@ -1,0 +1,39 @@
+
+%div
+  .panel.panel-default
+    .panel-body
+      = form_for [@form, @page], html: { class: 'form-inline' } do
+        %input{ type: :hidden, id: :project_id, value: @project.id }
+        %input{ type: :hidden, id: :form_id, value: @form.id }
+        - if @page.errors[:name].empty?
+          .form-group
+            %input.form-control#name{ name: :name, placeholder: 'Name', type: :text, value: @page.name }
+            %button.btn.btn-success{ type: :submit }
+              #{sg 'share-alt'} Create New Page
+          %p
+            &nbsp;
+        - else
+          .form-group.has-error.has-feedback
+            %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :name, placeholder: 'Name', type: :text,
+                                      value: @page.name }
+            %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
+          \&#160;
+          %button.btn.btn-success{ type: :submit }
+            #{sg 'share-alt'} Create New Page
+          %span.sr-only#nameErrorStatus (error)
+          %span.help-block= @page.errors[:name].first
+
+      - unless @pages.count.zero?
+        %table.table.table-condensed.table-hover.table-bordered.table-striped#sort_pages
+          %thead
+            %tr
+              %th{ colspan: 3 } Page
+          %tbody
+            - @pages.each do |p|
+              %tr.hand{ id: "p_#{p.id}" }
+                %td.middle
+                  = raw(" &nbsp;#{sg 'sort'} &nbsp;#{p.name}")
+                %td.tight= link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_form_page_path(@form, p), id: "page_#{p.id}",
+                                    type: :button, class: 'btn btn-sm btn-warning'
+                %td.tight= link_to raw("#{sg 'remove'} &nbsp;Delete"), 'javascript:;', id: "ad_page_#{p.id}", type: :button,
+                                    class: 'btn btn-sm btn-danger'

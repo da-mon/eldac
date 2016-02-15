@@ -1,0 +1,4 @@
+<% if @section -%>
+$('body').append("<%= escape_javascript( render( partial: 'sections/ask_delete', locals: { section: @section } ) ) %>");
+$('#adm_<%= @section.id %>').modal();
+<% end -%>

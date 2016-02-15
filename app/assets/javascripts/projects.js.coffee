@@ -1,4 +1,10 @@
 
+window.askDeleteForm = (project_id, id) ->
+  $.ajax
+    method: 'get'
+    url: '/projects/' + project_id + '/forms/' + id + '/ask_delete'
+  return
+
 window.askDeleteFolder = (id) ->
   $.ajax
     method: 'get'
@@ -135,11 +141,11 @@ window.saveFoldersSort = ->
     success: (result) ->
   return
 
-window.saveFormsSort = ->
+window.saveFormsSort = (project_id) ->
   order = $('#sort_forms tbody').sortable('serialize')
   $.ajax
     method: 'post'
-    url: '/forms/save_sort'
+    url: '/projects/' + project_id + '/forms/save_sort'
     data: order: order
     success: (result) ->
   return
@@ -158,7 +164,7 @@ $ ->
     cursor: 'move'
     opacity: 0.7
     update: (e, ui) ->
-      saveFormsSort()
+      saveFormsSort($('#project_id').val())
       return
 
   $('input:checkbox[id^="assigned"]').click ->
@@ -169,14 +175,19 @@ $ ->
     getProjects()
     return
 
-  $('a[id^="adf_"]').each ->
+  $('a[id^="ad_folder_"]').each ->
       $($(this)).click ->
-        askDeleteFolder $(this).attr('id').split('_')[1]
+        askDeleteFolder $(this).attr('id').split('_')[2]
         return
 
-  $('a[id^="f_"]').each ->
+  $('a[id^="folder_"]').each ->
       $($(this)).click ->
         editFolder $(this).attr('id').split('_')[1]
+        return
+
+  $('a[id^="ad_form_"]').each ->
+      $($(this)).click ->
+        askDeleteForm $('#project_id').val(), $(this).attr('id').split('_')[2]
         return
 
   return

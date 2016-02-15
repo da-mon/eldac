@@ -8,4 +8,5 @@
     %b= @project.name
     ?
     %p &nbsp;
-    = link_to raw("#{sg('remove')} &nbsp;Delete Project"), project_path(@project), { method: :delete, :type => 'button', :class => 'btn btn-sm btn-danger'}
+    = link_to raw("#{sg('remove')} &nbsp;Delete Project"), project_path(@project), method: :delete, type: :button,
+              class: 'btn btn-sm btn-danger'

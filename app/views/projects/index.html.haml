@@ -1,5 +1,4 @@
 
-
 %h3.page-header.hidden-xs Projects
 
 %div
@@ -11,7 +10,8 @@
             %p
               = link_to raw("#{sg 'plus'}&nbsp; New Project"), new_project_path, type: 'button', class: 'btn btn-success'
               - unless @projects_count.zero?
-                = link_to raw("#{sg 'wrench'}&nbsp; Organize Projects"), organize_projects_path, type: 'button', class: 'btn btn-info'
+                = link_to raw("#{sg 'wrench'}&nbsp; Organize Projects"), organize_projects_path, type: 'button',
+                          class: 'btn btn-info'
             - if @projects
               = render 'projects/projects_list'
             - elsif @folders

@@ -6,7 +6,8 @@
 - else
   .form-group.has-error.has-feedback
     %label.control-label{ for: :name } Name
-    %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :name, placeholder: 'Name', type: :text, :value => @project.name }
+    %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :name, placeholder: 'Name', type: :text,
+                              :value => @project.name }
     %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
     %span.sr-only#nameErrorStatus (error)
     %span.help-block= @project.errors[:name].first

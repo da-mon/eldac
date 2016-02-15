@@ -12,4 +12,5 @@
           %td
             = link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_project_path(p), type: :button, class: 'btn btn-sm btn-warning'
             - if @current_user.is_owner?(p)
-              = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button, class: 'btn btn-sm btn-danger'
+              = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button,
+                        class: 'btn btn-sm btn-danger'

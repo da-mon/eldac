@@ -11,10 +11,10 @@
         .panel.panel-default
           .panel-body
             = form_for @project, method: :put do
-              = render 'form'
+              = render 'projects/form'
               .form-group
                 %button.btn.btn-success{ type: :submit }
                   = sg('pencil')
                   &nbsp;Update Project
     .col-md-6
-      = render 'forms'
+      = render 'projects/forms'
