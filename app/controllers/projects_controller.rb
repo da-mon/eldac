@@ -23,10 +23,10 @@ class ProjectsController < ApplicationController
     if @project.valid?
       UserProject.create!(:user => @current_user, :project => @project, :relationship => Relationship.owner)
       redirect_to edit_project_path(@project)
-      return false
+      return
     end
     render :new
-    return false
+    return
   end
 
   def edit
@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
     unless @project && @current_user.is_owner?(@project)
       flash[:notice] = 'Project not found'
       redirect_to projects_path
-      return false
+      return
     end
     @forms = @project.forms
     @form = Form.new
@@ -45,17 +45,16 @@ class ProjectsController < ApplicationController
     unless @project && @current_user.is_owner?(@project)
       flash[:notice] = 'Project not found'
       redirect_to projects_path
-      return false
+      return
     end
     @project.update(project_params)
     if @project.valid?
-      flash[:notice] = 'Project updated'
       redirect_to edit_project_path
-      return false
+      return
     end
     flash[:notice] = 'Project update failed'
     render :edit
-    return false
+    return
   end
 
   def ask_delete
@@ -63,7 +62,7 @@ class ProjectsController < ApplicationController
     unless @project && @current_user.is_owner?(@project)
       flash[:notice] = 'Project not found'
       redirect_to projects_path
-      return false
+      return
     end
   end
 
@@ -79,7 +78,7 @@ class ProjectsController < ApplicationController
       flash[:notice] = 'Project not found'
     end
     redirect_to projects_path
-    return false
+    return
   end
 
   def organize
@@ -92,7 +91,7 @@ class ProjectsController < ApplicationController
     session[:organize_assigned] = params[:assigned].to_i
     get_projects_list
     render :partial => 'folders/projects_list'
-    return false
+    return
   end
 
   def checkall_folder

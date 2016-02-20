@@ -1,13 +1,19 @@
 
 - if @project.errors[:name].empty?
-  .form-group
-    %label.control-label{ for: :name } Name
-    %input.form-control{ type: :text, id: :name, name: :name, placeholder: 'Name', value: @project.try(:name) }
+  .input-group
+    %input.form-control#name{ type: :text, name: :name, placeholder: 'Name', value: @project.try(:name) }
+    %span.input-group-btn
+      %button.btn.btn-success#update{ type: :button }
+        = sg('pencil')
+        &nbsp;Update Project
 - else
-  .form-group.has-error.has-feedback
-    %label.control-label{ for: :name } Name
+  .input-group.has-error.has-feedback
     %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :name, placeholder: 'Name', type: :text,
                               :value => @project.name }
     %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
     %span.sr-only#nameErrorStatus (error)
     %span.help-block= @project.errors[:name].first
+    %span.input-group-btn
+      %button.btn.btn-success#update{ type: :button }
+        = sg('pencil')
+        &nbsp;Update Project

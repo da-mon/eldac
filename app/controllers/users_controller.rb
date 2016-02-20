@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       #@mail = UserMailer.validate_email(@user)
       #@mail.deliver_now
       redirect_to login_path
-      return false
+      return
     end
     flash[:error] = 'An error occured'
     render :new

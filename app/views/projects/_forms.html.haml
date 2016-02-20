@@ -5,20 +5,21 @@
       = form_for [@project, @form], html: { class: 'form-inline' } do
         %input{ type: :hidden, id: :project_id, value: @project.id }
         - if @form.errors[:name].empty?
-          .form-group
+          .input-group
             %input.form-control#name{ name: :name, placeholder: 'Name', type: :text, value: @form.name }
-            %button.btn.btn-success{ type: :submit }
-              #{sg 'share-alt'} Create New Form
+            %span.input-group-btn
+              %button.btn.btn-success{ type: :submit }
+                #{sg 'share-alt'} Create New Form
           %p
             &nbsp;
         - else
-          .form-group.has-error.has-feedback
+          .input-group.has-error.has-feedback
             %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :name, placeholder: 'Name', type: :text,
                                       value: @form.name }
-            %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
-          \&#160;
-          %button.btn.btn-success{ type: :submit }
-            #{sg 'share-alt'} Create New Folder
+            %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true } \&#160;
+            %span.input-group-btn
+              %button.btn.btn-success{ type: :submit }
+                #{sg 'share-alt'} Create New Folder
           %span.sr-only#nameErrorStatus (error)
           %span.help-block= @form.errors[:name].first
 

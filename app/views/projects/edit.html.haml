@@ -6,15 +6,18 @@
 
 %div
   .row
-    .col-md-12
+    .col-md-6
       %div
         .panel.panel-default
           .panel-body
             = form_for @project, method: :put do
               = render 'projects/form'
-              %button.btn.btn-success{ type: :submit }
-                = sg('pencil')
-                &nbsp;Update Project
   .row
-    .col-md-12
+    .col-md-8
       = render 'projects/forms'
+
+:javascript
+  $('#update').click(function(e) {
+    $('#edit_project_#{@project.id}').submit()
+    e.preventDefault();
+  });

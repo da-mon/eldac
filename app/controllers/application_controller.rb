@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     if session[:user_id].nil?
       flash[:error] = 'Login required'
       redirect_to login_path
-      return false
+      return
     end
     @current_user = User.where(:id => session[:user_id]).first
   end
