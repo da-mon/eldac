@@ -17,7 +17,8 @@ if ENV['SELENIUM'] == 'true'
     Capybara.javascript_driver = :selenium
   end
 else
-  Capybara.javascript_driver = :webkit
+  require 'capybara/poltergeist'
+  Capybara.javascript_driver = :poltergeist
 end
 
 # Add additional requires below this line. Rails is not loaded until this point!

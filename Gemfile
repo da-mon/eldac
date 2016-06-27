@@ -1,20 +1,20 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.5'
-gem 'pg', '~> 0.15'
+gem 'rails'
+gem 'pg'
 gem 'activerecord-session_store'
 gem 'acts_as_list'
 
 gem 'sprockets-rails'
-gem 'bootstrap-sass', '~> 3.3.6'
-gem 'sass-rails', '>= 3.2'
+gem 'bootstrap-sass'
+gem 'sass-rails'
 
 gem 'coffee-rails'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 gem 'jquery-rails'
-gem 'jbuilder', '~> 2.0'
-gem 'bcrypt', '~> 3.1.7'
+gem 'jbuilder'
+gem 'bcrypt'
 gem 'haml'
 
 gem 'unicorn'
@@ -24,7 +24,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.4.0'
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'capybara'
