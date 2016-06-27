@@ -1,0 +1,22 @@
+
+.h3.page-header.hidden-xs
+  = link_to 'Projects', projects_path
+  = dl
+  = link_to @project.name, edit_project_path(@project)
+  = dl
+  Edit Form
+
+%div
+  .row
+    .col-md-6
+      %div
+        .panel.panel-default
+          .panel-body
+            = form_for [@project, @form], method: :put do
+              = render 'forms/form'
+              .form-group
+                %button.btn.btn-success{ type: :submit }
+                  = sg('pencil')
+                  &nbsp;Update Form
+    .col-md-6
+      = render 'forms/pages'

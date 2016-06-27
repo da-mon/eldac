@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
   include BCrypt
 
   validates :email, presence: true, uniqueness: true, email: true, length: {maximum: 64}
-  validates :fname, presence: true, length: {in: 1..32}
-  validates :lname, presence: true, length: {in: 1..32}
-  validates :password, confirmation: true, presence: true, length: {in: 6..16}, :if => :pass_req?
-  validates :password_confirmation, presence: true, :if => :pass_req?
+  validates :fname, presence: true, length: {maximum: 32}
+  validates :lname, presence: true, length: {maximum: 32}
+  validates :password, confirmation: true, presence: true, length: {maximum: 16}, if: :pass_req?
+  validates :password_confirmation, presence: true, if: :pass_req?
   validates :p_salt, length: {maximum: 80}
   validates :p_hash, length: {maximum: 80}
 

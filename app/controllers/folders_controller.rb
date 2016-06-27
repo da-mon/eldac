@@ -46,7 +46,7 @@ class FoldersController < ApplicationController
       return
     end
     render nothing: true
-    return false
+    return
   end
 
   def destroy
@@ -63,12 +63,12 @@ class FoldersController < ApplicationController
       session[:show] = 'edit_folder'
       session[:id] = @folder.id
       redirect_to organize_projects_path
-      return false
+      return
     end
     @projects = @current_user.undeleted_projects
     @folders = @current_user.folders
     render 'projects/organize'
-    return false
+    return
   end
 
   private

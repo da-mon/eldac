@@ -13,9 +13,37 @@ Rails.application.routes.draw do
     post :toggle_folder, on: :collection
     post :checkall_folder, on: :collection
     post :assigned_folder, on: :collection
-    
-    resources :forms do
+
+    resources :forms, except: [:new] do
+      get :ask_delete, on: :member
       post :save_sort, on: :collection
+    end
+  end
+
+  resources :forms, only: [] do
+    resources :pages do
+      get :ask_delete, on: :member
+      post :save_sort, on: :collection
+    end
+  end
+
+  resources :pages, only: [] do
+    resources :sections do
+      get :ask_delete, on: :member
+      post :save_sort, on: :collection
+    end
+  end
+
+  resources :sections, only: [] do
+    resources :fields do
+      get :ask_delete, on: :member
+      post :save_sort, on: :collection
+    end
+  end
+
+  resources :fields, only: [] do
+    resources :field_opts do
+      
     end
   end
 

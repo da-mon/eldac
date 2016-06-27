@@ -11,24 +11,24 @@ class SessionsController < ApplicationController
         if User.authenticate(@user.email, params.fetch(:password, ''))
           session[:user_id] = @user.id
           redirect_to projects_path
-          return false
+          return
         end
       else
         flash[:error] = 'Your email has not been validated'
         @validate_email_link = true
         render :new
-        return false
+        return
       end
     end
     flash[:error] = 'Login failed'
     render :new
-    return false
+    return
   end
 
   def destroy
     reset_session
     redirect_to root_path
-    return false
+    return
   end
 
 end

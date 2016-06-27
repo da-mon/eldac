@@ -11,10 +11,13 @@
         .panel.panel-default
           .panel-body
             = form_for @project, method: :put do
-              = render 'form'
-              .form-group
-                %button.btn.btn-success{ type: :submit }
-                  = sg('pencil')
-                  &nbsp;Update Project
-    .col-md-6
-      = render 'forms'
+              = render 'projects/form'
+  .row
+    .col-md-8
+      = render 'projects/forms'
+
+:javascript
+  $('#update').click(function(e) {
+    $('#edit_project_#{@project.id}').submit()
+    e.preventDefault();
+  });

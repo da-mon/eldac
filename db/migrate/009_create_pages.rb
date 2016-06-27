@@ -6,7 +6,7 @@ class CreatePages < ActiveRecord::Migration
       t.string :name, null: false, index: true, limit: 64
       t.integer :position, index: true, null: false, default: 0
     end
-    add_index :pages, [:form_id, :name], :unique => true
+    add_index :pages, [:form_id, :name], unique: true
   end
 
 end
