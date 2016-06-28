@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'fields/create'
+
   resources :folders do
     get :ask_delete, on: :member
     post :organize, on: :collection

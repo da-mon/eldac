@@ -2,7 +2,7 @@ class SectionsController < ApplicationController
 
   before_filter :require_login
   before_filter :get_page
-  before_filter :get_section, only: [:ask_delete, :destroy, :edit]
+  before_filter :get_section, only: [:ask_delete, :destroy, :edit, :update]
 
   layout 'main'
 
@@ -19,8 +19,21 @@ class SectionsController < ApplicationController
   def edit
     @fields = @section.fields
     @field = Field.new
+    @form = @section.page.form
   end
 
+  def update
+    @section.update(section_params)
+    if @section.valid?
+      redirect_to edit_page_section_path(@page, @section)
+      return
+    end
+    @fields = @section.fields
+    @field = Field.new
+    @form = @section.page.form
+    render 'sections/edit'
+  end
+  
   def ask_delete
   end
 
@@ -33,7 +46,7 @@ class SectionsController < ApplicationController
     position = 1
     params[:order].split('&').each do |s|
       id = s.split('=')[1].to_i
-      section = @page.sections.where(:id => id).first
+      section = @page.sections.where(id: id).first
       if section
         section.position = position
         section.save!

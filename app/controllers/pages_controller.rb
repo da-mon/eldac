@@ -44,7 +44,7 @@ class PagesController < ApplicationController
     position = 1
     params[:order].split('&').each do |s|
       id = s.split('=')[1].to_i
-      page = @form.pages.where(:id => id).first
+      page = @form.pages.where(id: id).first
       if page
         page.position = position
         page.save!

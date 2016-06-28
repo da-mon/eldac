@@ -14,7 +14,6 @@ window.askDeleteSection = (page_id, id) ->
     url: '/pages/' + page_id + '/sections/' + id + '/ask_delete'
   return
 
-
 $ ->
 
   $('#sort_sections tbody').sortable
