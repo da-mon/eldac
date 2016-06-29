@@ -1,7 +1,7 @@
 class Record < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :form
+  belongs_to :form, counter_cache: true
 
   has_many :values, dependent: :destroy
 

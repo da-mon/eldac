@@ -3,7 +3,7 @@ window.savePagesSort = ->
   order = $('#sort_pages tbody').sortable('serialize')
   $.ajax
     method: 'post'
-    url: '/forms/' + $('#form_id').val() + '/pages/save_sort'
+    url: '/forms/' + $('#page_form_id').val() + '/pages/save_sort'
     data: order: order
     success: (result) ->
   return
@@ -13,7 +13,6 @@ window.askDeletePage = (form_id, id) ->
     method: 'get'
     url: '/forms/' + form_id + '/pages/' + id + '/ask_delete'
   return
-
 
 $ ->
 

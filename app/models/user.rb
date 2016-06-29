@@ -13,20 +13,20 @@ class User < ActiveRecord::Base
 
   include BCrypt
 
-  validates :email, presence: true, uniqueness: true, email: true, length: {maximum: 64}
-  validates :fname, presence: true, length: {maximum: 32}
-  validates :lname, presence: true, length: {maximum: 32}
-  validates :password, confirmation: true, presence: true, length: {maximum: 16}, if: :pass_req?
+  validates :email, presence: true, uniqueness: true, email: true, length: { maximum: 64 }
+  validates :fname, presence: true, length: { maximum: 32 }
+  validates :lname, presence: true, length: { maximum: 32 }
+  validates :password, confirmation: true, presence: true, length: { maximum: 16 }, if: :pass_req?
   validates :password_confirmation, presence: true, if: :pass_req?
-  validates :p_salt, length: {maximum: 80}
-  validates :p_hash, length: {maximum: 80}
+  validates :p_salt, length: { maximum: 80 }
+  validates :p_hash, length: { maximum: 80 }
 
   before_save :downcase_email
 
   has_many :user_projects, dependent: :destroy
-  has_many :projects, :through => :user_projects
+  has_many :projects, through: :user_projects
 
-  has_many :folders, ->{order 'position'}, dependent: :destroy
+  has_many :folders, -> { order :position }, dependent: :destroy
   has_many :project_folders, dependent: :destroy
 
   def is_owner?(project)

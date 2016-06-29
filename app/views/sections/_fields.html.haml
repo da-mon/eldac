@@ -1,39 +1,27 @@
 
+%h4 Section Fields
+
+- unless @section.fields.count.zero?
+  %table.table.table-condensed.table-hover.table-bordered.table-striped#sort_fields
+    %thead
+      %tr
+        %th Field
+        %th Type
+        %th{ colspan: 2 } &nbsp;
+    %tbody
+      - @section.fields.each do |f|
+        %tr.hand{ id: "s_#{f.id}" }
+          %td.middle= " &nbsp;#{sg 'sort'} &nbsp;#{f.name}".html_safe
+          %td.middle= f.field_type
+          %td.tight= link_to "#{sg 'pencil'} &nbsp;Edit".html_safe, edit_section_field_path(@section, f), id: "field_#{f.id}", type: :button, class: 'btn btn-sm btn-warning'
+          %td.tight= link_to "#{sg 'remove'} &nbsp;Delete".html_safe, 'javascript:;', id: "ad_field_#{f.id}", type: :button, class: 'btn btn-sm btn-danger'
+
 %div
   .panel.panel-default
     .panel-body
-      = form_for [@section, @field], html: { class: 'form-inline' } do
-        %input{ type: :hidden, id: :form_id, value: @form.id }
-        %input{ type: :hidden, id: :page_id, value: @page.id }
-        - if @field.errors[:name].empty?
-          .form-group
-            %input.form-control#name{ name: :name, placeholder: 'Name', type: :text, value: @field.name }
-            %button.btn.btn-success{ type: :submit }
-              #{sg 'share-alt'} Create New Field
-          %p
-            &nbsp;
-        - else
-          .form-group.has-error.has-feedback
-            %input.form-control#name{ 'aria-describedby' => 'nameErrorStatus', name: :name, placeholder: 'Name', type: :text,
-                                      value: @field.name }
-            %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
-          \&#160;
-          %button.btn.btn-success{ type: :submit }
-            #{sg 'share-alt'} Create New Section
-          %span.sr-only#nameErrorStatus (error)
-          %span.help-block= @field.errors[:name].first
-
-      - unless @fields.count.zero?
-        %table.table.table-condensed.table-hover.table-bordered.table-striped#sort_sections
-          %thead
-            %tr
-              %th{ colspan: 3 } Field
-          %tbody
-            - @fields.each do |f|
-              %tr.hand{ id: "s_#{f.id}" }
-                %td.middle
-                  = raw(" &nbsp;#{sg 'sort'} &nbsp;#{f.name}")
-                %td.tight= link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_section_field_path(@section, f), id: "field_#{f.id}", type: :button,
-                                    class: 'btn btn-sm btn-warning'
-                %td.tight= link_to raw("#{sg 'remove'} &nbsp;Delete"), 'javascript:;', id: "ad_field_#{f.id}", type: :button,
-                                    class: 'btn btn-sm btn-danger'
+      = simple_form_for [@section, @field] do |f|
+        = f.hidden_field :section_id, value: @section.id
+        = render partial: 'fields/form', locals: { f: f }
+        = f.button :button, class: 'btn-success' do
+          = sg 'share-alt'
+          Create Field

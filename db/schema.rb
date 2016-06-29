@@ -35,7 +35,8 @@ ActiveRecord::Schema.define(version: 18) do
   add_index "field_opts", ["position"], name: "index_field_opts_on_position", using: :btree
 
   create_table "field_types", force: :cascade do |t|
-    t.string "name", limit: 32, null: false
+    t.string  "name",         limit: 32,             null: false
+    t.integer "fields_count",            default: 0, null: false
   end
 
   add_index "field_types", ["name"], name: "index_field_types_on_name", unique: true, using: :btree
@@ -43,9 +44,10 @@ ActiveRecord::Schema.define(version: 18) do
   create_table "fields", force: :cascade do |t|
     t.integer "section_id"
     t.integer "field_type_id"
-    t.string  "name",          limit: 64
-    t.string  "default",       limit: 255
-    t.integer "position",                  default: 0, null: false
+    t.string  "name",             limit: 64
+    t.string  "default",          limit: 255
+    t.integer "field_opts_count",             default: 0, null: false
+    t.integer "position",                     default: 0, null: false
   end
 
   add_index "fields", ["field_type_id"], name: "index_fields_on_field_type_id", using: :btree
@@ -68,8 +70,9 @@ ActiveRecord::Schema.define(version: 18) do
 
   create_table "forms", force: :cascade do |t|
     t.integer "project_id"
-    t.string  "name",       limit: 64,             null: false
-    t.integer "position",              default: 0, null: false
+    t.string  "name",          limit: 64,             null: false
+    t.integer "records_count",            default: 0, null: false
+    t.integer "position",                 default: 0, null: false
   end
 
   add_index "forms", ["name"], name: "index_forms_on_name", using: :btree
@@ -125,8 +128,9 @@ ActiveRecord::Schema.define(version: 18) do
 
   create_table "sections", force: :cascade do |t|
     t.integer "page_id"
-    t.string  "name",     limit: 64
-    t.integer "position",            default: 0, null: false
+    t.string  "name",         limit: 64
+    t.integer "fields_count",            default: 0, null: false
+    t.integer "position",                default: 0, null: false
   end
 
   add_index "sections", ["name"], name: "index_sections_on_name", using: :btree

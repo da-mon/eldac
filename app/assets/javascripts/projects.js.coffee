@@ -164,7 +164,7 @@ $ ->
     cursor: 'move'
     opacity: 0.7
     update: (e, ui) ->
-      saveFormsSort($('#project_id').val())
+      saveFormsSort($('#form_project_id').val())
       return
 
   $('input:checkbox[id^="assigned"]').click ->

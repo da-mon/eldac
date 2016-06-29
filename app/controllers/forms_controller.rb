@@ -57,27 +57,17 @@ class FormsController < ApplicationController
   private
 
   def form_params
-    params.permit(:name)
+    params.require(:form).permit(:name)
   end
 
   def get_form
     @form = @project.forms.where(id: params[:id]).first
-    if @form.nil?
-      respond_to do |format|
-        format.json{render json: {status: 404, response: 'Form Not Found'}}
-        format.html{redirect_to @project ? edit_project_path(@project) : projects_path}
-      end
-    end
+    redirect_to (@project ? edit_project_path(@project) : projects_path) unless @form
   end
 
   def get_project
     @project = @current_user.projects.where(id: params[:project_id]).first
-    if @project.nil?
-      respond_to do |format|
-        format.json{render json: {status: 404, response: 'Project Not Found'}}
-        format.html{redirect_to projects_path}
-      end
-    end
+    redirect_to projects_path unless @project
   end
 
 end

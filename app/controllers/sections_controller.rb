@@ -12,7 +12,7 @@ class SectionsController < ApplicationController
       redirect_to edit_form_page_path(@page.form, @page)
       return
     end
-    @section = @page.sections
+    #@section = @page.sections
     render 'pages/edit'
   end
 
@@ -20,6 +20,7 @@ class SectionsController < ApplicationController
     @fields = @section.fields
     @field = Field.new
     @form = @section.page.form
+    @field_types = FieldType.all
   end
 
   def update
@@ -59,31 +60,21 @@ class SectionsController < ApplicationController
   private
 
   def section_params
-    params.permit(:name)
+    params.require(:section).permit(:name)
   end
 
   def get_page
     @page = Page.where(id: params[:page_id]).first
     @project = @current_user.projects.where(id: @page.form.project_id).first if @page
     @page = nil unless @project
-    if @page.nil?
-      respond_to do |format|
-        format.json{render json: {status: 404, response: 'Page Not Found'}}
-        format.html{redirect_to form_pages_path(@form)}
-      end
-    end
+    redirect_to root_path unless @page
   end
 
   def get_section
     @section = Section.where(id: params[:id]).first
     @project = @current_user.projects.where(id: @section.page.form.project_id).first if @section
     @section = nil unless @project
-    if @section.nil?
-      respond_to do |format|
-        format.json{render json: {status: 404, response: 'Section Not Found'}}
-        format.html{redirect_to @project ? edit_project_path(@project) : projects_path}
-      end
-    end
+    redirect_to root_path unless @section
   end
 
 end

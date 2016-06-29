@@ -14,11 +14,12 @@
       %div
         .panel.panel-default
           .panel-body
-            = form_for [@form, @page], method: :put do
-              = render 'pages/form'
+            = simple_form_for [@form, @page], method: :put do |f|
+              = render partial: 'pages/form', locals: { f: f }
               .form-group
-                %button.btn.btn-success{ type: :submit }
-                  = sg('pencil')
-                  &nbsp;Update Page
+                = f.button :button, class: 'btn-success' do
+                  = sg 'pencil'
+                  Update Page
+  .row
     .col-md-6
       = render 'pages/sections'

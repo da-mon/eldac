@@ -46,7 +46,6 @@ class FoldersController < ApplicationController
       return
     end
     render nothing: true
-    return
   end
 
   def destroy
@@ -68,7 +67,6 @@ class FoldersController < ApplicationController
     @projects = @current_user.undeleted_projects
     @folders = @current_user.folders
     render 'projects/organize'
-    return
   end
 
   private

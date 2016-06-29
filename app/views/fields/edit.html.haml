@@ -1,0 +1,26 @@
+
+.h3.page-header.hidden-xs
+  = link_to 'Projects', projects_path
+  = dl
+  = link_to @field.section.page.form.project.name, edit_project_path(@field.section.page.form.project)
+  = dl
+  = link_to @field.section.page.form.name, edit_project_form_path(@field.section.page.form.project, @field.section.page.form)
+  = dl
+  = link_to @field.section.page.name, edit_form_page_path(@field.section.page.form, @field.section.page)
+  = dl
+  = link_to @field.section.name, edit_page_section_path(@field.section.page, @field.section.page)
+  = dl
+  Edit Field
+
+%div
+  .row
+    .col-md-6
+      %div
+        .panel.panel-default
+          .panel-body
+            = simple_form_for [@field.section, @field], method: :put do |f|
+              = render partial: 'fields/form', locals: { f: f }
+              .form-group
+                = f.button :button, class: 'btn-success' do
+                  = sg 'pencil'
+                  Update Field

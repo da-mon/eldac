@@ -218,7 +218,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects when valid' do
       expect {
-        post :create, { name: 'New Name' }, { user_id: user.id }
+        post :create, { project: { name: 'New Name' } }, { user_id: user.id }
       }.to change(Project, :count).by(1)
       expect(response).to have_http_status(:redirect)
     end
@@ -242,7 +242,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'renders form on invalid update' do
       expect {
-        put :update, { id: project.id, name: '' }, { user_id: user.id }
+        put :update, { id: project.id, project: { name: '' } }, { user_id: user.id }
         project.reload
       }.to_not change{ project.name }
       expect(response).to have_http_status(:success)
@@ -252,7 +252,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on valid update' do
       expect {
-        put :update, { id: project.id, name: 'Updated Name' }, { user_id: user.id }
+        put :update, { id: project.id, project: { name: 'Updated Name' } }, { user_id: user.id }
         project.reload
       }.to change{ project.name }
       expect(response).to have_http_status(:redirect)

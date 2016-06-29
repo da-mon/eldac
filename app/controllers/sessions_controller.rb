@@ -22,13 +22,11 @@ class SessionsController < ApplicationController
     end
     flash[:error] = 'Login failed'
     render :new
-    return
   end
 
   def destroy
     reset_session
     redirect_to root_path
-    return
   end
 
 end

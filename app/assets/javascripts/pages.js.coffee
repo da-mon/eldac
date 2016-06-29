@@ -3,7 +3,7 @@ window.saveSectionsSort = ->
   order = $('#sort_sections tbody').sortable('serialize')
   $.ajax
     method: 'post'
-    url: '/pages/' + $('#page_id').val() + '/sections/save_sort'
+    url: '/pages/' + $('#section_page_id').val() + '/sections/save_sort'
     data: order: order
     success: (result) ->
   return

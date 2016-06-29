@@ -6,6 +6,7 @@ gem 'pg'
 gem 'activerecord-session_store'
 gem 'acts_as_list'
 
+gem 'simple_form'
 gem 'sprockets-rails'
 gem 'bootstrap-sass'
 gem 'sass-rails'

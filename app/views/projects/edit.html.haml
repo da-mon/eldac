@@ -10,14 +10,11 @@
       %div
         .panel.panel-default
           .panel-body
-            = form_for @project, method: :put do
-              = render 'projects/form'
+            = simple_form_for @project, method: :put do |f|
+              = render partial: 'projects/form', locals: { f: f }
+              = f.button :button, class: 'btn-success' do
+                = sg 'pencil'
+                Update Project
   .row
-    .col-md-8
+    .col-md-6
       = render 'projects/forms'
-
-:javascript
-  $('#update').click(function(e) {
-    $('#edit_project_#{@project.id}').submit()
-    e.preventDefault();
-  });

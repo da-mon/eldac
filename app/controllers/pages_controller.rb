@@ -57,29 +57,21 @@ class PagesController < ApplicationController
   private
 
   def page_params
-    params.permit(:name)
+    params.require(:page).permit(:name)
   end
 
   def get_form
     @form = Form.where(id: params[:form_id]).first
     @project = @current_user.projects.where(id: @form.project_id).first if @form
     @form = nil unless @project
-    if @form.nil?
-      respond_to do |format|
-        format.json{render json: {status: 404, response: 'Form Not Found'}}
-        format.html{redirect_to @project ? edit_project_path(@project) : projects_path}
-      end
-    end
+    redirect_to root_path unless @form
   end
 
   def get_page
     @page = @form.pages.where(id: params[:id]).first
-    if @page.nil?
-      respond_to do |format|
-        format.json{render json: {status: 404, response: 'Page Not Found'}}
-        format.html{redirect_to form_pages_path(@form)}
-      end
-    end
+    @project = @current_user.projects.where(id: @page.form.project_id).first if @page
+    @page = nil unless @project
+    redirect_to root_path unless @page
   end
 
 end
