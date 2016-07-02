@@ -1,8 +1,8 @@
 
-window.askDeleteForm = (project_id, id) ->
+window.askDeleteForm = (id) ->
   $.ajax
     method: 'get'
-    url: '/projects/' + project_id + '/forms/' + id + '/ask_delete'
+    url: '/projects/' + $('#form_project_id').val() + '/forms/' + id + '/ask_delete'
   return
 
 window.askDeleteFolder = (id) ->
@@ -187,7 +187,7 @@ $ ->
 
   $('a[id^="ad_form_"]').each ->
       $($(this)).click ->
-        askDeleteForm $('#project_id').val(), $(this).attr('id').split('_')[2]
+        askDeleteForm $(this).attr('id').split('_')[2]
         return
 
   return

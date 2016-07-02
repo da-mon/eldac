@@ -62,12 +62,12 @@ class FormsController < ApplicationController
 
   def get_form
     @form = @project.forms.where(id: params[:id]).first
-    redirect_to (@project ? edit_project_path(@project) : projects_path) unless @form
+    redirect_to root_path unless @form
   end
 
   def get_project
     @project = @current_user.projects.where(id: params[:project_id]).first
-    redirect_to projects_path unless @project
+    redirect_to root_path unless @project
   end
 
 end
