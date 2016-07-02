@@ -9,7 +9,7 @@ RSpec.describe ProjectsController, type: :controller do
     let(:folder) { create(:folder, :valid_folder, user: user) }
     let(:project) { create(:project, :valid_project) }
     let(:owner) { create(:relationship, name: 'owner') }
-    let!(:user_project) { create(:user_project, :valid_user_project, user: user, project: project, relationship: owner) }
+    let!(:user_project) { create(:user_project, user: user, project: project, relationship: owner) }
 
     it 'redirects anon users' do
       post :toggle_folder
@@ -36,7 +36,7 @@ RSpec.describe ProjectsController, type: :controller do
     let(:folder) { create(:folder, :valid_folder, user: user) }
     let(:project) { create(:project, :valid_project) }
     let(:owner) { create(:relationship, name: 'owner') }
-    let!(:user_project) { create(:user_project, :valid_user_project, user: user, project: project, relationship: owner) }
+    let!(:user_project) { create(:user_project, user: user, project: project, relationship: owner) }
 
     it 'redirects anon users' do
       post :checkall_folder

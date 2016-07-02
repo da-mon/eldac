@@ -8,11 +8,11 @@ RSpec.describe User, type: :model do
   describe "valid user" do
 
     let(:owner){ create(:relationship, name: 'owner') }
-    let(:user_project){ create(:user_project, :valid_user_project, relationship: owner) }
+    let(:user_project){ create(:user_project, relationship: owner) }
     let(:user){ create(:user, :valid_user) }
     let(:project_folder) { create(:project_folder, :valid_project_folder, user: user) }
     let!(:project){ create(:project, :valid_project) }
-    let!(:user_project_2){ create(:user_project, :valid_user_project, project: project, user: user) }
+    let!(:user_project_2){ create(:user_project, project: project, user: user) }
 
     it 'has a valid factory' do
       expect(valid_user).to be_valid

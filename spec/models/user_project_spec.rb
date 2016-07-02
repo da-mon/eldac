@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UserProject, type: :model do
 
-  let(:valid_user_project){ create(:user_project, :valid_user_project) }
+  let(:valid_user_project){ create(:user_project) }
 
   describe 'valid user_project' do
     it 'has a valid factory' do
