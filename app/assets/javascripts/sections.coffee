@@ -8,6 +8,12 @@ window.saveFieldsSort = ->
     success: (result) ->
   return
 
+window.askDeleteField = (id) ->
+  $.ajax
+    method: 'get'
+    url: '/section/' + $('#field_section_id').val() + '/fields/' + id + '/ask_delete'
+  return
+
 $ ->
 
   $('#sort_fields tbody').sortable
@@ -16,3 +22,8 @@ $ ->
     update: (e, ui) ->
       saveFieldsSort()
       return
+
+  $('a[id^="ad_field_"]').each ->
+      $($(this)).click ->
+        askDeleteField $(this).attr('id').split('_')[2]
+        return

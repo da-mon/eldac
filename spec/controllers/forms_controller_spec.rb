@@ -3,6 +3,32 @@ require 'rails_helper'
 
 RSpec.describe FormsController, type: :controller do
 
+  describe 'POST #save_sort' do
+
+    let(:user) { create(:user, :valid_user) }
+    let(:project) { create(:project) }
+    let(:relationship) { create(:relationship, :owner) }
+    let!(:user_project) { create(:user_project, user: user, project: project, relationship: relationship) }
+    let(:form) { create(:form, project: project) }
+    let(:form2) { create(:form, project: project, name: 'Form 2') }
+    let(:order) { "f[]=#{form.id}&f[]=#{form2.id}" }
+
+    it 'anon user returns redirect' do
+      post :save_sort, { project_id: project.id, order: order }, { user_id: nil }
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'invalid project returns redirect' do
+      post :save_sort, { project_id: 0, order: order }, { user_id: user.id }
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it 'valid project and order sorts' do
+      post :save_sort, { project_id: project.id, order: order }, { user_id: user.id }
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'POST #create' do
 
     let(:user) { create(:user, :valid_user) }

@@ -8,10 +8,10 @@ window.saveSectionsSort = ->
     success: (result) ->
   return
 
-window.askDeleteSection = (page_id, id) ->
+window.askDeleteSection = (id) ->
   $.ajax
     method: 'get'
-    url: '/pages/' + page_id + '/sections/' + id + '/ask_delete'
+    url: '/pages/' + $('#section_page_id').val() + '/sections/' + id + '/ask_delete'
   return
 
 $ ->
@@ -25,5 +25,5 @@ $ ->
 
   $('a[id^="ad_section_"]').each ->
       $($(this)).click ->
-        askDeleteSection $('#page_id').val(), $(this).attr('id').split('_')[2]
+        askDeleteSection $(this).attr('id').split('_')[2]
         return

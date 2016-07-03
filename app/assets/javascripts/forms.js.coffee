@@ -8,10 +8,10 @@ window.savePagesSort = ->
     success: (result) ->
   return
 
-window.askDeletePage = (form_id, id) ->
+window.askDeletePage = (id) ->
   $.ajax
     method: 'get'
-    url: '/forms/' + form_id + '/pages/' + id + '/ask_delete'
+    url: '/forms/' + $('#page_form_id').val() + '/pages/' + id + '/ask_delete'
   return
 
 $ ->
@@ -25,5 +25,5 @@ $ ->
 
   $('a[id^="ad_page_"]').each ->
       $($(this)).click ->
-        askDeletePage $('#form_id').val(), $(this).attr('id').split('_')[2]
+        askDeletePage $(this).attr('id').split('_')[2]
         return
