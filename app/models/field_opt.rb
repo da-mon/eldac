@@ -7,4 +7,8 @@ class FieldOpt < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 64 }, uniqueness: { scope: :field_id }
 
+  def to_s
+    name
+  end
+
 end
