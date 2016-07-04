@@ -19,7 +19,7 @@
       = simple_form_for [@form, @page] do |f|
         = f.hidden_field :project_id, value: @project.id
         = f.hidden_field :form_id, value: @form.id
-        = f.input :name
+        = render partial: 'pages/form', locals: { f: f }
         = f.button :button, class: 'btn-success' do
           = sg 'share-alt'
           Create New Page

@@ -139,3 +139,11 @@ table.table tbody tr.lh32 td
 {
     line-height: 32px;
 }
+
+table.table tr.sm-header td
+{
+    color: #fff;
+    background: #000;
+    font-weight: bold;
+    font-size: 0.8em;
+}

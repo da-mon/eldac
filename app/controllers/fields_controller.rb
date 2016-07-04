@@ -7,7 +7,7 @@ class FieldsController < ApplicationController
   layout 'main'
 
   def edit
-    @field_types = FieldType.all
+    @field_types = FieldType.sorted
   end
 
   def update

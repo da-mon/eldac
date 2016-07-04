@@ -20,9 +20,11 @@ window.editFolder = (id) ->
 window.toggleFolderCollapse = (id) ->
   visible = $('span#fc-' + id).is(':visible')
   if visible
+    $('tr#header-' + id).show()
     $('span#fc-' + id).hide()
     $('span#fo-' + id).show()
   else
+    $('tr#header-' + id).hide()
     $('span#fc-' + id).show()
     $('span#fo-' + id).hide()
   $('tr[id^=f' + id + ']').each (k, v) ->

@@ -5,16 +5,5 @@
   Edit Project
 
 %div
-  .row
-    .col-md-6
-      %div
-        .panel.panel-default
-          .panel-body
-            = simple_form_for @project, method: :put do |f|
-              = render partial: 'projects/form', locals: { f: f }
-              = f.button :button, class: 'btn-success' do
-                = sg 'pencil'
-                Update Project
-  .row
-    .col-md-6
-      = render 'projects/forms'
+  = render partial: 'projects/edit_project'
+  = render partial: 'projects/edit_forms'

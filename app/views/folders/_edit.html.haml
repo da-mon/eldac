@@ -7,20 +7,18 @@
           %span{ 'aria-hidden' => :true } &#215;
         %h4.modal-title Update Folder
       .modal-body
-        %input{ type: :hidden, name: :fg_color, id: :fg_color, value: @folder.fg }
-        %input{ type: :hidden, name: :bg_color, id: :bg_color, value: @folder.bg }
+        %input{ type: :hidden, name: :fg_color, id: "fg-#{@folder.id}_color", value: @folder.fg }
+        %input{ type: :hidden, name: :bg_color, id: "bg-#{@folder.id}_color", value: @folder.bg }
         .row
           .col-md-11
             - if @folder.errors[:name].empty?
               .form-group
                 %label.control-label{ for: :folder_name } Name
-                %input.form-control{ type: :text, id: :folder_name, name: :folder_name, placeholder: 'Name',
-                                    value: @folder.try(:name) }
+                %input.form-control{ type: :text, id: :folder_name, name: :folder_name, placeholder: 'Name', value: @folder.try(:name) }
             - else
               .form-group.has-error.has-feedback
                 %label.control-label{ for: :folder_name } Name
-                %input.form-control{ 'aria-describedby' => 'nameErrorStatus', id: :folder_name, name: :folder_name,
-                                    placeholder: 'Name', type: :text, value: @folder.name }
+                %input.form-control{ 'aria-describedby' => 'nameErrorStatus', id: :folder_name, name: :folder_name, placeholder: 'Name', type: :text, value: @folder.name }
                 %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
                 %span.sr-only#folderNameErrorStatus (error)
                 %span.help-block= @folder.errors[:name].first
@@ -30,13 +28,12 @@
               .form-group
                 %label.control-label{ for: :fg } Foreground
                 .clearfix
-                %input.form-control{ type: :text, id: :fg, name: :fg, placeholder: '000000', value: @folder.try(:fg) }
+                %input.form-control{ type: :text, id: "fg-#{@folder.id}", name: :fg, placeholder: '000000', value: @folder.try(:fg) }
             - else
               .form-group.has-error.has-feedback
                 %label.control-label{ for: :fg } Foreground
                 .clearfix
-                %input.form-control{ 'aria-describedby' => 'nameErrorStatus', id: :fg, name: :fg, placeholder: '#000000',
-                                    type: :text, value: @folder.fg }
+                %input.form-control{ 'aria-describedby' => 'nameErrorStatus', id: "fg-#{@folder.id}", name: :fg, placeholder: '#000000', type: :text, value: @folder.fg }
                 %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
                 %span.sr-only#fgErrorStatus (error)
                 %span.help-block= @folder.errors[:fg].first
@@ -45,13 +42,12 @@
               .form-group
                 %label.control-label{ for: :bg } Background
                 .clearfix
-                %input.form-control{ type: :text, id: :bg, name: :bg, placeholder: 'ffffff', value: @folder.try(:bg) }
+                %input.form-control{ type: :text, id: "bg-#{@folder.id}", name: :bg, placeholder: 'ffffff', value: @folder.try(:bg) }
             - else
               .form-group.has-error.has-feedback
                 %label.control-label{ for: :bg } Background
                 .clearfix
-                %input.form-control{ 'aria-describedby' => 'nameErrorStatus', id: :bg, name: :bg, placeholder: '#ffffff',
-                                    type: :text, value: @folder.bg }
+                %input.form-control{ 'aria-describedby' => 'nameErrorStatus', id: "bg-#{@folder.id}", name: :bg, placeholder: '#ffffff', type: :text, value: @folder.bg }
                 %span.glyphicon.glyphicon-remove.form-control-feedback{ 'aria-hidden' => true }
                 %span.sr-only#bgErrorStatus (error)
                 %span.help-block= @folder.errors[:bg].first
@@ -67,11 +63,9 @@
         url: '/folders/#{@folder.id}',
         data: {
           name: $('#folder_name').val(),
-          fg: $('#fg_color').val().replace('#', ''),
-          bg: $('#bg_color').val().replace('#', '')
+          fg: $('#fg-#{@folder.id}_color').val().replace('#', ''),
+          bg: $('#bg-#{@folder.id}_color').val().replace('#', '')
         }
       });
     });
-    initSpectrum('#fg', "#{@folder.try(:fg)}");
-    initSpectrum('#bg', "#{@folder.try(:bg)}");
   });

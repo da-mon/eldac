@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 18) do
+ActiveRecord::Schema.define(version: 20) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,8 +103,10 @@ ActiveRecord::Schema.define(version: 18) do
   add_index "project_folders", ["user_id"], name: "index_project_folders_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string  "name",    limit: 64,                 null: false
-    t.boolean "deleted",            default: false
+    t.string  "name",          limit: 64,                 null: false
+    t.integer "surveys_count",            default: 0,     null: false
+    t.integer "forms_count",              default: 0,     null: false
+    t.boolean "deleted",                  default: false
   end
 
   add_index "projects", ["deleted"], name: "index_projects_on_deleted", using: :btree
@@ -113,11 +115,13 @@ ActiveRecord::Schema.define(version: 18) do
   create_table "records", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "form_id"
+    t.integer  "survey_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_index "records", ["form_id"], name: "index_records_on_form_id", using: :btree
+  add_index "records", ["survey_id"], name: "index_records_on_survey_id", using: :btree
   add_index "records", ["user_id"], name: "index_records_on_user_id", using: :btree
 
   create_table "relationships", force: :cascade do |t|
@@ -147,6 +151,25 @@ ActiveRecord::Schema.define(version: 18) do
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+
+  create_table "survey_forms", force: :cascade do |t|
+    t.integer  "survey_id"
+    t.integer  "form_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "form_id"
+    t.boolean  "active",        default: true, null: false
+    t.integer  "records_count", default: 0,    null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "surveys", ["form_id"], name: "index_surveys_on_form_id", using: :btree
+  add_index "surveys", ["project_id"], name: "index_surveys_on_project_id", using: :btree
 
   create_table "token_types", force: :cascade do |t|
     t.string "name", limit: 32, null: false
@@ -217,8 +240,11 @@ ActiveRecord::Schema.define(version: 18) do
   add_foreign_key "project_folders", "projects"
   add_foreign_key "project_folders", "users"
   add_foreign_key "records", "forms"
+  add_foreign_key "records", "surveys"
   add_foreign_key "records", "users"
   add_foreign_key "sections", "pages"
+  add_foreign_key "surveys", "forms"
+  add_foreign_key "surveys", "projects"
   add_foreign_key "user_projects", "projects"
   add_foreign_key "user_projects", "relationships"
   add_foreign_key "user_projects", "users"

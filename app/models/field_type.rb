@@ -4,6 +4,8 @@ class FieldType < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 32 }, uniqueness: true
 
+  scope :sorted, -> { order 'name' }
+
   def to_s
     name
   end

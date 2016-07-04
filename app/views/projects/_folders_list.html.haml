@@ -3,30 +3,39 @@
   %table.table.table-condensed.table-hover.table-bordered.table-striped
     %thead
       %tr
-        %th{ colspan: 2 } Project Folders
+        %th{ colspan: 4 } Project Folders
     %tbody
       - unless @unfoldered_projects.nil? || @unfoldered_projects.count.zero?
-        %tr
-          %td.middle{ colspan: 2 }
+        %tr.lh32
+          %td.middle{ colspan: 4 }
             &nbsp;
             %span.glyphicon.glyphicon-folder-open
               %b
-                %a{ href: 'javascript:;', style: 'text-decoration: none; color: #000' }
+                %a{ href: 'javascript:;', style: 'font-family: sans-serif; text-decoration: none; color: #000' }
                   Unfoldered
+        %tr.sm-header
+          %td.indent Project
+          %td.tight Surveys
+          %td.tight Forms
+          %td &nbsp;
         - @unfoldered_projects.each do |p|
           - next if p.deleted
           %tr
-            %td.middle.indent= p.name
+            %td.middle.indent
+              = p.name
+            %td.center.middle
+              = p.surveys.size
+            %td.center.middle
+              = p.forms.size
             %td.tight
               = link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_project_path(p), type: :button, class: 'btn btn-sm btn-warning'
               - if @current_user.is_owner?(p)
-                = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button,
-                          class: 'btn btn-sm btn-danger'
+                = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button, class: 'btn btn-sm btn-danger'
 
       - @folders.each do |f|
         - next if f.project_folders.count.zero?
         %tr.lh32
-          %td.middle{ colspan: 2, style: f.td_style }
+          %td.middle{ colspan: 4, style: f.td_style }
             %b
               &nbsp;
               - if f.collapsed
@@ -38,14 +47,22 @@
               &nbsp;
               %a{ href: 'javascript:;', onclick: "javascript:toggleFolderCollapse(#{f.id});", style: f.a_style }
                 = f.name
+        %tr.sm-header{ id: "header-#{f.id}", style: (f.collapsed ? 'display:none' : '').html_safe }
+          %td.indent Project
+          %td.tight Surveys
+          %td.tight Forms
+          %td &nbsp;
         - f.project_folders.each do |pf|
           - p = pf.project
           - next if p.deleted
-          %tr{ id: "f#{f.id}-p#{p.id}", style: raw(f.collapsed ? 'display:none' : '') }
+          %tr{ id: "f#{f.id}-p#{p.id}", style: (f.collapsed ? 'display:none' : '').html_safe }
             %td.middle.indent{ style: f.td_style }
               = link_to p.name, edit_project_path(p), style: f.a_style
+            %td.center.middle{ style: f.td_style }
+              = p.surveys.size
+            %td.center.middle{ style: f.td_style }
+              = p.forms.size
             %td.tight
               = link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_project_path(p), type: :button, class: 'btn btn-sm btn-warning'
               - if @current_user.is_owner?(p)
-                = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button,
-                          class: 'btn btn-sm btn-danger'
+                = link_to raw("#{sg 'remove'} &nbsp;Delete"), ask_delete_project_path(p), type: :button, class: 'btn btn-sm btn-danger'

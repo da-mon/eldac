@@ -1,2 +1,4 @@
 $('body').append("<%= escape_javascript( render( partial: 'folders/edit', locals: { folder: @folder } ) ) %>");
 $('#fm_<%= @folder.id %>').modal();
+initSpectrum('#fg-<%= @folder.id %>', '<%= @folder.try(:fg) %>');
+initSpectrum('#bg-<%= @folder.id %>', '<%= @folder.try(:bg) %>');
