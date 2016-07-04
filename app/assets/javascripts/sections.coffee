@@ -11,7 +11,7 @@ window.saveFieldsSort = ->
 window.askDeleteField = (id) ->
   $.ajax
     method: 'get'
-    url: '/section/' + $('#field_section_id').val() + '/fields/' + id + '/ask_delete'
+    url: '/sections/' + $('#field_section_id').val() + '/fields/' + id + '/ask_delete'
   return
 
 $ ->

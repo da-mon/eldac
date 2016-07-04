@@ -45,7 +45,8 @@ Rails.application.routes.draw do
 
   resources :fields, only: [] do
     resources :field_opts do
-      
+      get :ask_delete, on: :member
+      post :save_sort, on: :collection      
     end
   end
 

@@ -6,8 +6,16 @@ class Field < ActiveRecord::Base
 
   has_many :field_opts, -> { order :position }, dependent: :destroy
 
-  validates :field_type_id, presence: true
+  validates :field_type_id, presence: true, numericality: { only_integer: true }
   validates :section_id, presence: true
   validates :name, presence: true, length: { maximum: 64 }, uniqueness: { scope: :section_id }
 
+  validate :validate_field_type
+
+  private
+
+  def validate_field_type
+    errors.add(:field_type_id, 'is invalid') unless FieldType.exists?(self.field_type_id)
+  end
+  
 end

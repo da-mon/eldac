@@ -1,0 +1,4 @@
+<% if @field -%>
+$('body').append("<%= escape_javascript( render( partial: 'fields/ask_delete', locals: { field: @field } ) ) %>");
+$('#adm_<%= @field.id %>').modal();
+<% end -%>

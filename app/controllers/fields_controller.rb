@@ -30,6 +30,14 @@ class FieldsController < ApplicationController
     render 'sections/edit'
   end
 
+  def ask_delete
+  end
+
+  def destroy
+    @id = @field.id
+    @field.destroy
+  end
+
   def save_sort
     position = 1
     params[:order].split('&').each do |s|
