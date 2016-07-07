@@ -36,6 +36,8 @@ class ProjectsController < ApplicationController
       redirect_to projects_path
       return
     end
+    @surveys = @project.surveys
+    @survey = Survey.new
     @forms = @project.forms
     @form = Form.new
   end

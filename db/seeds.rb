@@ -1,47 +1,41 @@
 
-%w{ text textarea radio select image checkbox date datetime calculated }.sort.each{ |n|
-  FieldType.create!(:name => n)
-}
+include FactoryGirl::Syntax::Methods
+
+%w{ text textarea radio select image checkbox date datetime calculated }.sort.each do |n|
+  create(:field_type, name: n)
+end
 puts "#{FieldType.count} field types created"
 
-%w{ validate_email }.sort.each{ |n|
-  TokenType.create!(:name => n)
-}
+%w{ validate_email }.sort.each do |n|
+  create(:token_type, name: n)
+end
 puts "#{TokenType.count} token types created"
 
-%w{ owner }.sort.each{ |n|
-  Relationship.create!(:name => n)
-}
+%w{ owner }.sort.each do |n|
+  create(:relationship, name: n)
+end
 puts "#{Relationship.count} relationships created"
 
-user = User.create!(
-  :fname => 'Greg',
-  :lname => 'Donald',
-  :email => 'gdonald@gmail.com',
-  :password => 'changeme',
-  :password_confirmation => 'changeme',
-  :email_valid => true
+user = create(:user, 
+  fname: 'Greg',
+  lname: 'Donald',
+  email: 'gdonald@gmail.com',
+  password: 'changeme',
+  password_confirmation: 'changeme',
+  email_valid: true
 )
 puts "#{User.count} users created"
 
-17.times do
-  p = Project.create!( name: Faker::Name.title )
-  UserProject.create!( user: user, project: p, relationship: Relationship.owner )
-end
+project = create(:project, name: Faker::Name.title)
+up = create(:user_project, user: user, project: project, relationship: Relationship.owner)
+
 puts "#{Project.count} projects created"
 puts "#{UserProject.count} user projects created"
 
-fg = %w(000000 ffffff ffffff ffffff ffffff ffffff)
-bg = %w(ffffff 337ab7 5cb85c 5bc0de f0ad4e d9534f)
-6.times do |x|
-  f = Folder.create!( user: user, name: Faker::Name.last_name, collapsed: true, fg: fg[x], bg: bg[x] )
-  UserProject.where( user: user ).each do |up|
-    ProjectFolder.create!( user: user, project: up.project, folder: f ) if (up.id + f.id) % 2 == 0
-  end
-end
+folder = create(:folder, user: user, name: 'My Projects', collapsed: true, fg: 'ffffff', bg: 'cc0000')
+create(:project_folder, user: user, project: project, folder: folder)
+
 puts "#{ProjectFolder.count} project folders created"
 
-3.times do
-  f = Form.create!( project: Project.first, name: Faker::Name.last_name )
-end
+form = create(:form, project: project, name: 'Form 1')
 puts "#{Form.count} forms created"

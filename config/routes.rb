@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       get :ask_delete, on: :member
       post :save_sort, on: :collection
     end
+    resources :surveys, except: [:new] do
+      get :ask_delete, on: :member
+      post :save_sort, on: :collection
+    end
   end
 
   resources :forms, only: [] do

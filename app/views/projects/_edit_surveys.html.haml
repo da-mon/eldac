@@ -1,0 +1,27 @@
+.row
+	.col-md-6
+		%h4 Project Surveys
+		- unless @surveys.count.zero?
+			%table.table.table-condensed.table-hover.table-bordered.table-striped#sort_surveys
+				%thead
+					%tr
+						%th survey
+						%th Records
+						%th{ colspan: 2 } &nbsp;
+				%tbody
+					- @surveys.each do |s|
+						%tr.hand{ id: "s_#{s.id}" }
+							%td.middle #{ " &nbsp;#{sg 'sort'} &nbsp;#{s.name}".html_safe }
+							%td.middle= s.records.size
+							%td.tight= link_to raw("#{sg 'pencil'} &nbsp;Edit"), edit_project_survey_path(@project, s), id: "survey_#{s.id}", type: :button, class: 'btn btn-sm btn-warning'
+							%td.tight= link_to raw("#{sg 'remove'} &nbsp;Delete"), 'javascript:;', id: "ad_survey_#{s.id}", type: :button, class: 'btn btn-sm btn-danger'
+
+		%div
+			.panel.panel-default
+				.panel-body
+					= simple_form_for [@project, @survey] do |f|
+						= f.hidden_field :project_id, value: @project.id
+						= render partial: 'projects/survey', locals: { f: f }
+						= f.button :button, class: 'btn-success' do
+							= sg 'share-alt'
+							Create New Survey

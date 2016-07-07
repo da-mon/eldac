@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
 
-  has_many :surveys, -> { order :created_at }, dependent: :destroy
+  has_many :surveys, -> { order :position }, dependent: :destroy
   has_many :forms, -> { order :position }, dependent: :destroy
 
   has_many :project_folders, dependent: :destroy

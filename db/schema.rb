@@ -162,13 +162,15 @@ ActiveRecord::Schema.define(version: 20) do
   create_table "surveys", force: :cascade do |t|
     t.integer  "project_id"
     t.integer  "form_id"
-    t.boolean  "active",        default: true, null: false
-    t.integer  "records_count", default: 0,    null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "name",          limit: 64,                null: false
+    t.boolean  "active",                   default: true, null: false
+    t.integer  "records_count",            default: 0,    null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   add_index "surveys", ["form_id"], name: "index_surveys_on_form_id", using: :btree
+  add_index "surveys", ["name"], name: "index_surveys_on_name", using: :btree
   add_index "surveys", ["project_id"], name: "index_surveys_on_project_id", using: :btree
 
   create_table "token_types", force: :cascade do |t|
