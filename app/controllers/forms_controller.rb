@@ -1,8 +1,8 @@
 class FormsController < ApplicationController
 
-  before_filter :require_login
-  before_filter :get_project
-  before_filter :get_form, only: [:edit, :update, :ask_delete, :destroy]
+  before_action :require_login
+  before_action :get_project
+  before_action :get_form, only: [:edit, :update, :ask_delete, :destroy]
 
   layout 'main'
 

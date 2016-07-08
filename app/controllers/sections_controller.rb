@@ -1,8 +1,8 @@
 class SectionsController < ApplicationController
 
-  before_filter :require_login
-  before_filter :get_page
-  before_filter :get_section, only: [:ask_delete, :destroy, :edit, :update]
+  before_action :require_login
+  before_action :get_page
+  before_action :get_section, only: [:ask_delete, :destroy, :edit, :update]
 
   layout 'main'
 

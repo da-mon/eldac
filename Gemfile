@@ -22,6 +22,7 @@ gem 'unicorn'
 
 group :development do
   gem 'capistrano-rails'
+  gem 'puma'
 end
 
 group :development, :test do
@@ -39,4 +40,5 @@ end
 
 group :test do
   gem 'simplecov', require: false
+  gem 'rails-controller-testing'
 end

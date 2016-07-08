@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
 
-  before_filter :require_login
-  before_filter :get_form
-  before_filter :get_page, only: [:ask_delete, :destroy, :edit, :update]
+  before_action :require_login
+  before_action :get_form
+  before_action :get_page, only: [:ask_delete, :destroy, :edit, :update]
 
   layout 'main'
 

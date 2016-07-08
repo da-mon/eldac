@@ -1,8 +1,8 @@
 class FieldsController < ApplicationController
 
-  before_filter :require_login
-  before_filter :get_section
-  before_filter :get_field, only: [:ask_delete, :destroy, :edit, :update]
+  before_action :require_login
+  before_action :get_section
+  before_action :get_field, only: [:ask_delete, :destroy, :edit, :update]
   
   layout 'main'
 
