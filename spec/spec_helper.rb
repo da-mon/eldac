@@ -5,8 +5,6 @@ if ENV['COVERAGE'] == 'true'
   SimpleCov.start 'rails'
 end
 
-#require 'factory_girl_rails'
-
 RSpec.configure do |config|
 
   config.expect_with :rspec do |expectations|
