@@ -39,16 +39,7 @@ class FieldsController < ApplicationController
   end
 
   def save_sort
-    position = 1
-    params[:order].split('&').each do |s|
-      id = s.split('=')[1].to_i
-      field = @section.fields.where(id: id).first
-      if field
-        field.position = position
-        field.save!
-        position += 1
-      end
-    end
+    save_sorted(@section.fields)
     head :ok
   end
   

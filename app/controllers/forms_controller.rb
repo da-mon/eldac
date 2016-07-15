@@ -41,16 +41,7 @@ class FormsController < ApplicationController
   end
 
   def save_sort
-    position = 1
-    params[:order].split('&').each do |s|
-      id = s.split('=')[1].to_i
-      form = @project.forms.where(:id => id).first
-      if form
-        form.position = position
-        form.save!
-        position += 1
-      end
-    end
+    save_sorted(@project.forms)
     head :ok
   end
 

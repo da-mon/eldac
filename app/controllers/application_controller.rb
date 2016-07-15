@@ -13,6 +13,19 @@ class ApplicationController < ActionController::Base
     @current_user = User.where(:id => session[:user_id]).first
   end
 
+  def save_sorted(query)
+    position = 1
+    params[:order].split('&').each do |s|
+      id = s.split('=')[1].to_i
+      obj = query.where(id: id).first
+      if obj
+        obj.position = position
+        obj.save!
+        position += 1
+      end
+    end
+  end
+
   def get_projects_list
     @folder = @current_user.folders.where(:id => session[:organize_folder_id]).first
     @projects = @folder.nil? ? [] : @current_user.projects_in(@folder)

@@ -43,16 +43,7 @@ class SectionsController < ApplicationController
   end
 
   def save_sort
-    position = 1
-    params[:order].split('&').each do |s|
-      id = s.split('=')[1].to_i
-      section = @page.sections.where(id: id).first
-      if section
-        section.position = position
-        section.save!
-        position += 1
-      end
-    end
+    save_sorted(@page.sections)
     head :ok
   end
 
