@@ -1,8 +1,10 @@
 
 window.askDeleteForm = (id) ->
+  project_id = $('#form_project_id').val()
+  url = '/projects/' + project_id + '/forms/' + id + '/ask_delete'
   $.ajax
     method: 'get'
-    url: '/projects/' + $('#form_project_id').val() + '/forms/' + id + '/ask_delete'
+    url: url
   return
 
 window.askDeleteFolder = (id) ->
@@ -152,7 +154,6 @@ window.saveFormsSort = (project_id) ->
     success: (result) ->
   return
 
-
 $ ->
 
   $('#sort_folders tbody').sortable
@@ -178,18 +179,18 @@ $ ->
     return
 
   $('a[id^="ad_folder_"]').each ->
-      $($(this)).click ->
-        askDeleteFolder $(this).attr('id').split('_')[2]
-        return
+    $($(this)).click ->
+      askDeleteFolder $(this).attr('id').split('_')[2]
+      return
 
   $('a[id^="folder_"]').each ->
-      $($(this)).click ->
-        editFolder $(this).attr('id').split('_')[1]
-        return
+    $($(this)).click ->
+      editFolder $(this).attr('id').split('_')[1]
+      return
 
   $('a[id^="ad_form_"]').each ->
-      $($(this)).click ->
-        askDeleteForm $(this).attr('id').split('_')[2]
-        return
+    $($(this)).click ->
+      askDeleteForm $(this).attr('id').split('_')[2]
+      return
 
   return
