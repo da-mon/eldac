@@ -18,12 +18,12 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'valid toggle renders nothing' do
       expect {
-        post :toggle_folder, { folder_id: folder.id, project_ids: [project.id] }, { user_id: user.id }
+        post :toggle_folder, params: { folder_id: folder.id, project_ids: [project.id] }, session: { user_id: user.id }
       }.to change(ProjectFolder, :count).by(1)
       expect(response).to render_template(nil)
 
       expect {
-        post :toggle_folder, { folder_id: folder.id, project_ids: [project.id] }, { user_id: user.id }
+        post :toggle_folder, params: { folder_id: folder.id, project_ids: [project.id] }, session: { user_id: user.id }
       }.to change(ProjectFolder, :count).by(-1)
       expect(response).to render_template(nil)
     end
@@ -45,12 +45,12 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'valid check all renders nothing' do
       expect {
-        post :checkall_folder, { checkall: 1, folder_id: folder.id, project_ids: [project.id] }, { user_id: user.id }
+        post :checkall_folder, params: { checkall: 1, folder_id: folder.id, project_ids: [project.id] }, session: { user_id: user.id }
       }.to change(ProjectFolder, :count).by(1)
       expect(response).to render_template(nil)
 
       expect {
-        post :checkall_folder, { checkall: 0, folder_id: folder.id, project_ids: [project.id] }, { user_id: user.id }
+        post :checkall_folder, params: { checkall: 0, folder_id: folder.id, project_ids: [project.id] }, session: { user_id: user.id }
       }.to change(ProjectFolder, :count).by(-1)
       expect(response).to render_template(nil)
     end
@@ -68,7 +68,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects when valid' do
       expect {
-        post :assigned_folder, { assigned: 1 }, { user_id: user.id }
+        post :assigned_folder, params: { assigned: 1 }, session: { user_id: user.id }
       }.to change{ session[:organize_assigned] }
       expect(response).to render_template('folders/_projects_list')
     end
@@ -85,7 +85,7 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     it 'valid user returns http success' do
-      get :organize, {}, { user_id: user.id }
+      get :organize, params: {}, session: { user_id: user.id }
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:organize)
       expect(response).to render_template(:main)
@@ -105,14 +105,14 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     it 'valid user returns http success' do
-      get :index, {}, { user_id: user.id }
+      get :index, params: {}, session: { user_id: user.id }
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:index)
       expect(response).to render_template(:main)
     end
 
     it 'valid user with organized folders returns http success' do
-      get :index, {}, { user_id: user2.id }
+      get :index, params: {}, session: { user_id: user2.id }
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:index)
       expect(response).to render_template(:main)
@@ -130,7 +130,7 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     it 'valid user returns http success' do
-      get :new, {}, { user_id: user.id }
+      get :new, params: {}, session: { user_id: user.id }
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:new)
       expect(response).to render_template(:main)
@@ -147,24 +147,24 @@ RSpec.describe ProjectsController, type: :controller do
     let!(:user_project ) { create(:user_project, user: user, project: project, relationship: owner) }
 
     it 'redirects anon users' do
-      get :edit, { id: 0 }
+      get :edit, params: { id: 0 }
       expect(response).to have_http_status(:redirect)
     end
 
     it 'valid user returns http success' do
-      get :edit, { id: project.id }, { user_id: user.id }
+      get :edit, params: { id: project.id }, session: { user_id: user.id }
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:edit)
       expect(response).to render_template(:main)
     end
 
     it 'not owner returns http redirect' do
-      get :edit, { id: project.id }, { user_id: user2.id }
+      get :edit, params: { id: project.id }, session: { user_id: user2.id }
       expect(response).to have_http_status(:redirect)
     end
 
     it 'invalid project id redirects' do
-      get :edit, { id: 0 }, { user_id: user.id }
+      get :edit, params: { id: 0 }, session: { user_id: user.id }
       expect(response).to have_http_status(:redirect)
     end
 
@@ -179,24 +179,24 @@ RSpec.describe ProjectsController, type: :controller do
     let!(:user_project) { create(:user_project, user: user, project: project, relationship: owner) }
 
     it 'redirects anon users' do
-      get :ask_delete, { id: 0 }
+      get :ask_delete, params: { id: 0 }
       expect(response).to have_http_status(:redirect)
     end
 
     it 'valid user returns http success' do
-      get :ask_delete, { id: project.id }, { user_id: user.id }
+      get :ask_delete, params: { id: project.id }, session: { user_id: user.id }
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:ask_delete)
       expect(response).to render_template(:main)
     end
 
     it 'not owner returns http redirect' do
-      get :ask_delete, { id: project.id }, { user_id: user2.id }
+      get :ask_delete, params: { id: project.id }, session: { user_id: user2.id }
       expect(response).to have_http_status(:redirect)
     end
 
     it 'invalid project id redirects' do
-      get :ask_delete, { id: 0 }, { user_id: user.id }
+      get :ask_delete, params: { id: 0 }, session: { user_id: user.id }
       expect(response).to have_http_status(:redirect)
     end
 
@@ -209,7 +209,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'returns form on error' do
       expect {
-        post :create, { :project => { :name => '' } }, { user_id: user.id }
+        post :create, params: { :project => { :name => '' } }, session: { user_id: user.id }
       }.to change(Project, :count).by(0)
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:new)
@@ -218,14 +218,14 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects when valid' do
       expect {
-        post :create, { project: { name: 'New Name' } }, { user_id: user.id }
+        post :create, params: { project: { name: 'New Name' } }, session: { user_id: user.id }
       }.to change(Project, :count).by(1)
       expect(response).to have_http_status(:redirect)
     end
 
     it 'redirects anon user' do
       expect {
-        post :create, { name: 'New Name' }, {}
+        post :create, params: { name: 'New Name' }, session: {}
       }.to change(Project, :count).by(0)
       expect(response).to have_http_status(:redirect)
     end
@@ -242,7 +242,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'renders form on invalid update' do
       expect {
-        put :update, { id: project.id, project: { name: '' } }, { user_id: user.id }
+        put :update, params: { id: project.id, project: { name: '' } }, session: { user_id: user.id }
         project.reload
       }.to_not change{ project.name }
       expect(response).to have_http_status(:success)
@@ -252,7 +252,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on valid update' do
       expect {
-        put :update, { id: project.id, project: { name: 'Updated Name' } }, { user_id: user.id }
+        put :update, params: { id: project.id, project: { name: 'Updated Name' } }, session: { user_id: user.id }
         project.reload
       }.to change{ project.name }
       expect(response).to have_http_status(:redirect)
@@ -260,7 +260,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on invalid project' do
       expect {
-        put :update, { id: 0, name: 'Updated Name' }, { user_id: user.id }
+        put :update, params: { id: 0, name: 'Updated Name' }, session: { user_id: user.id }
         project.reload
       }.to_not change{ project.name }
       expect(response).to have_http_status(:redirect)
@@ -268,7 +268,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on invalid project owner' do
       expect {
-        put :update, { id: project.id, name: 'Updated Name' }, { user_id: user2.id }
+        put :update, params: { id: project.id, name: 'Updated Name' }, session: { user_id: user2.id }
         project.reload
       }.to_not change{ project.name }
       expect(response).to have_http_status(:redirect)
@@ -276,7 +276,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on anon user' do
       expect {
-        put :update, { id: project.id, name: 'Updated Name' }, {}
+        put :update, params: { id: project.id, name: 'Updated Name' }, session: {}
         project.reload
       }.to_not change{ project.name }
       expect(response).to have_http_status(:redirect)
@@ -294,7 +294,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on valid project owner' do
       expect {
-        delete :destroy, { id: project.id }, { user_id: user.id }
+        delete :destroy, params: { id: project.id }, session: { user_id: user.id }
         project.reload
       }.to change{ project.deleted }
       expect(response).to have_http_status(:redirect)
@@ -302,7 +302,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on invalid project owner' do
       expect {
-        delete :destroy, { id: project.id }, { user_id: user2.id }
+        delete :destroy, params: { id: project.id }, session: { user_id: user2.id }
         project.reload
       }.to change(Project, :count).by(0)
       expect(response).to have_http_status(:redirect)
@@ -310,7 +310,7 @@ RSpec.describe ProjectsController, type: :controller do
 
     it 'redirects on anon user' do
       expect {
-        delete :destroy, { id: project.id }, {}
+        delete :destroy, params: { id: project.id }, session: {}
       }.to change(Project, :count).by(0)
       expect(response).to have_http_status(:redirect)
     end

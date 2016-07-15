@@ -18,7 +18,7 @@ RSpec.describe SessionsController, type: :controller do
     let(:invalid) { create(:user, email_valid: false) }
 
     it "returns http redirect for a valid user" do
-      post :create, email: valid_user.email, password: valid_user.password
+      post :create, params: { email: valid_user.email, password: valid_user.password }
       expect(response).to have_http_status(:redirect)
       expect(controller.session[:user_id]).to eq(valid_user.id)
     end
@@ -31,7 +31,7 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     it "returns http success for an invalid user" do
-      post :create, email: invalid.email, password: invalid.password
+      post :create, params: { email: invalid.email, password: invalid.password }
       expect(response).to have_http_status(:success)
       expect(controller.session[:user_id]).to eq(nil)
       expect(response).to render_template(:new)

@@ -51,7 +51,7 @@ class FormsController < ApplicationController
         position += 1
       end
     end
-    render nothing: true
+    head :ok
   end
 
   private

@@ -18,7 +18,7 @@ RSpec.describe UsersController, type: :controller do
 
     it "invalid user renders new form" do
       expect {
-        post :create, :user => { :fname => '' }
+        post :create, params: { user: { fname: '' } }
       }.to change(User, :count).by(0)
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:new)
@@ -27,7 +27,7 @@ RSpec.describe UsersController, type: :controller do
 
     it "valid user info redirects" do
       expect {
-        post :create, :user => attributes_for(:user, email: Faker::Internet.email)
+        post :create, params: { user: attributes_for(:user, email: Faker::Internet.email) }
       }.to change(User, :count).by(1)
       expect(response).to have_http_status(:redirect)
     end

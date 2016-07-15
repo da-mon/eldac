@@ -21,7 +21,7 @@ class FoldersController < ApplicationController
     @folder = @current_user.folders.where(:id => params[:id]).first
     @folder.collapsed = !@folder.collapsed
     @folder.save!
-    render nothing: true
+    head :ok
   end
 
   def save_sort
@@ -35,7 +35,7 @@ class FoldersController < ApplicationController
         position += 1
       end
     end
-    render nothing: true
+    head :ok
   end
 
   def organize
@@ -45,7 +45,7 @@ class FoldersController < ApplicationController
       render :partial => 'projects_list'
       return
     end
-    render nothing: true
+    head :ok
   end
 
   def destroy

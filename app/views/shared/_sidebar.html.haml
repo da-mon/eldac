@@ -1,3 +1,6 @@
 
 %ul.nav.nav-sidebar
-  = side_menu
+  - %w(projects records).each do |m|
+    %li{ class: ('active' if request.original_fullpath.include?(m)) }
+      - title = "<span class='glyphicon glyphicon-#{glyph(m)}'> #{m.titleize}".html_safe
+      = link_to title, send("#{m}_path")

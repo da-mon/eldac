@@ -3,17 +3,6 @@ require 'rails_helper'
 
 RSpec.describe ApplicationHelper, type: :helper do
 
-  describe 'side_menu' do
-
-    it 'will return a <ul> of menu items' do
-      controller.request.path = '/records'
-      expect(helper.side_menu).to include('<a href="/projects">')
-      expect(helper.side_menu).to include('<li class="active"><a href="/records">')
-
-    end
-
-  end
-
   describe 'glyph' do
 
     it 'will return a glyph name for a symbol' do

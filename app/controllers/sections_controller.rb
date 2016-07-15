@@ -12,7 +12,6 @@ class SectionsController < ApplicationController
       redirect_to edit_form_page_path(@page.form, @page)
       return
     end
-    #@section = @page.sections
     render 'pages/edit'
   end
 
@@ -54,7 +53,7 @@ class SectionsController < ApplicationController
         position += 1
       end
     end
-    render nothing: true
+    head :ok
   end
 
   private

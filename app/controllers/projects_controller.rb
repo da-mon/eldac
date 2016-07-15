@@ -112,7 +112,7 @@ class ProjectsController < ApplicationController
         end
       end
     end
-    render nothing: true
+    head :ok
   end
 
   def toggle_folder
@@ -129,7 +129,7 @@ class ProjectsController < ApplicationController
         end
       end
     end
-    render nothing: true
+    head :ok
   end
 
   private
