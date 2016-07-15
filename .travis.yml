@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - "2.3.1"
   - "2.2.5"
-script: bundle exec rake
+script: COVERAGE=true CODECLIMATE_REPO_TOKEN=1a209f56ee0cdf880825ab5d6a414ccb866d1cdf55ff1530574b018382ccf263 bundle exec rake
 services:
   - postgresql
 addons:

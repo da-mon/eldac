@@ -39,6 +39,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'codeclimate-test-reporter', require: nil
   gem 'simplecov', require: false
   gem 'rails-controller-testing'
 end
