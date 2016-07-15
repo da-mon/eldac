@@ -1,7 +1,7 @@
 class FieldsController < ApplicationController
 
   before_action :require_login
-  before_action :get_section
+  before_action { get_section( params[:section_id] ) }
   before_action :get_field, only: [:ask_delete, :destroy, :edit, :update]
   
   layout 'main'
@@ -47,13 +47,6 @@ class FieldsController < ApplicationController
 
   def field_params
     params.require(:field).permit(:name, :field_type_id)
-  end
-
-  def get_section
-    @section = Section.where(id: params[:section_id]).first
-    @project = @current_user.projects.where(id: @section.page.form.project_id).first if @section
-    @section = nil unless @project
-    redirect_to root_path unless @section
   end
 
   def get_field

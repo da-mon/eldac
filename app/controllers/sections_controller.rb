@@ -2,7 +2,7 @@ class SectionsController < ApplicationController
 
   before_action :require_login
   before_action :get_page
-  before_action :get_section, only: [:ask_delete, :destroy, :edit, :update]
+  before_action only: [:ask_delete, :destroy, :edit, :update] { get_section( params[:id] ) }
 
   layout 'main'
 
@@ -58,13 +58,6 @@ class SectionsController < ApplicationController
     @project = @current_user.projects.where(id: @page.form.project_id).first if @page
     @page = nil unless @project
     redirect_to root_path unless @page
-  end
-
-  def get_section
-    @section = Section.where(id: params[:id]).first
-    @project = @current_user.projects.where(id: @section.page.form.project_id).first if @section
-    @section = nil unless @project
-    redirect_to root_path unless @section
   end
 
 end

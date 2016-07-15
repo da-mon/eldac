@@ -13,6 +13,13 @@ class ApplicationController < ActionController::Base
     @current_user = User.where(:id => session[:user_id]).first
   end
 
+  def get_section(id)
+    @section = Section.where(id: id).first
+    @project = @current_user.projects.where(id: @section.page.form.project_id).first if @section
+    @section = nil unless @project
+    redirect_to root_path unless @section
+  end
+
   def save_sorted(query)
     position = 1
     params[:order].split('&').each do |s|
