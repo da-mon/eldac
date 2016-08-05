@@ -5,6 +5,7 @@ include FactoryGirl::Syntax::Methods
   create(:field_type, name: n)
 end
 puts "#{FieldType.count} field types created"
+text = FieldType.where(name: 'text').first
 
 %w{ validate_email }.sort.each do |n|
   create(:token_type, name: n)
@@ -39,3 +40,12 @@ puts "#{ProjectFolder.count} project folders created"
 
 form = create(:form, project: project, name: 'Form 1')
 puts "#{Form.count} forms created"
+
+page = create(:page, form: form, name: 'Page 1')
+puts "#{Page.count} pages created"
+
+section = create(:section, page: page, name: 'Section 1')
+puts "#{Section.count} sections created"
+
+field = create(:field, section: section, name: 'Field 1', field_type: text)
+puts "#{Field.count} fields created"
