@@ -12,7 +12,6 @@ class FormsController < ApplicationController
       redirect_to edit_project_path(@project)
       return
     end
-    @forms = @project.forms
     render 'projects/edit'
   end
 
@@ -54,11 +53,6 @@ class FormsController < ApplicationController
   def get_form
     @form = @project.forms.where(id: params[:id]).first
     redirect_to root_path unless @form
-  end
-
-  def get_project
-    @project = @current_user.projects.where(id: params[:project_id]).first
-    redirect_to root_path unless @project
   end
 
 end

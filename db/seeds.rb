@@ -49,3 +49,9 @@ puts "#{Section.count} sections created"
 
 field = create(:field, section: section, name: 'Field 1', field_type: text)
 puts "#{Field.count} fields created"
+
+survey = create(:survey, project: project, name: 'Survey 1')
+puts "#{Survey.count} surveys created"
+
+survey_form = create(:survey_form, survey: survey, form: form)
+puts "#{SurveyForm.count} survey forms created"

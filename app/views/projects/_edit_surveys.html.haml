@@ -1,7 +1,7 @@
 .row
 	.col-md-6
 		%h4 Project Surveys
-		- unless @surveys.count.zero?
+		- unless @project.surveys.count.zero?
 			%table.table.table-condensed.table-hover.table-bordered.table-striped#sort_surveys
 				%thead
 					%tr
@@ -9,7 +9,7 @@
 						%th Records
 						%th{ colspan: 2 } &nbsp;
 				%tbody
-					- @surveys.each do |s|
+					- @project.surveys.each do |s|
 						%tr.hand{ id: "s_#{s.id}" }
 							%td.middle #{ " &nbsp;#{sg 'sort'} &nbsp;#{s.name}".html_safe }
 							%td.middle= s.records.size

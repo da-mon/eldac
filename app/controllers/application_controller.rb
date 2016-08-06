@@ -13,6 +13,11 @@ class ApplicationController < ActionController::Base
     @current_user = User.where(:id => session[:user_id]).first
   end
 
+  def get_project
+    @project = @current_user.projects.where(id: params[:project_id]).first
+    redirect_to root_path unless @project
+  end
+
   def get_section(id)
     @section = Section.where(id: id).first
     @project = @current_user.projects.where(id: @section.page.form.project_id).first if @section

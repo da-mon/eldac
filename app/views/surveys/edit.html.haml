@@ -1,0 +1,20 @@
+
+.h3.page-header.hidden-xs
+  = link_to 'Projects', projects_path
+  = dl
+  = link_to @project.name, edit_project_path(@project)
+  = dl
+  Edit Survey
+
+%div
+  .row
+    .col-md-6
+      %div
+        .panel.panel-default
+          .panel-body
+            = simple_form_for [@project, @survey], method: :put do |f|
+              = render partial: 'surveys/form', locals: { f: f }
+              .form-group
+                = f.button :button, class: 'btn-success' do
+                  = sg 'pencil'
+                  Update Survey

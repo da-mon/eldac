@@ -1,7 +1,7 @@
 .row
 	.col-md-6
 		%h4 Project Forms
-		- unless @forms.count.zero?
+		- unless @project.forms.count.zero?
 			%table.table.table-condensed.table-hover.table-bordered.table-striped#sort_forms
 				%thead
 					%tr
@@ -9,7 +9,7 @@
 						%th Records
 						%th{ colspan: 2 } &nbsp;
 				%tbody
-					- @forms.each do |f|
+					- @project.forms.each do |f|
 						%tr.hand{ id: "f_#{f.id}" }
 							%td.middle #{ " &nbsp;#{sg 'sort'} &nbsp;#{f.name}".html_safe }
 							%td.middle= f.records.size
