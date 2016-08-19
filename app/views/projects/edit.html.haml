@@ -4,7 +4,14 @@
   = dl
   Edit Project
 
-%div
-  = render partial: 'projects/edit_project'
-  = render partial: 'projects/edit_forms'
-  = render partial: 'projects/edit_surveys'
+%ul.nav.nav-tabs
+  %li.active#project{ role: :presentation }
+    = link_to 'Project', 'javascript:;'
+  %li#forms{ role: :presentation }
+    = link_to 'Forms', 'javascript:;'
+  %li#surveys{ role: :presentation }
+    = link_to 'Surveys', 'javascript:;'
+
+= render partial: 'projects/edit_project'
+= render partial: 'projects/edit_forms'
+= render partial: 'projects/edit_surveys'
