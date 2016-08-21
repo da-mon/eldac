@@ -1,0 +1,4 @@
+<% if @survey -%>
+$('body').append("<%= escape_javascript( render( partial: 'surveys/ask_delete', locals: { survey: @survey } ) ) %>");
+$('#adm_<%= @survey.id %>').modal();
+<% end -%>

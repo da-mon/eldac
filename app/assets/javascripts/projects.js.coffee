@@ -1,4 +1,12 @@
 
+window.askDeleteSurvey = (id) ->
+  project_id = $('#form_project_id').val()
+  url = '/projects/' + project_id + '/surveys/' + id + '/ask_delete'
+  $.ajax
+    method: 'get'
+    url: url
+  return
+
 window.askDeleteForm = (id) ->
   project_id = $('#form_project_id').val()
   url = '/projects/' + project_id + '/forms/' + id + '/ask_delete'
@@ -156,6 +164,32 @@ window.saveFormsSort = (project_id) ->
 
 $ ->
 
+  $('a#tab_project').click ->
+    $('div#forms').addClass('hidden')
+    $('div#surveys').addClass('hidden')
+    $('div#project').removeClass('hidden')
+    $('li#li_forms').removeClass('active')
+    $('li#li_surveys').removeClass('active')
+    $('li#li_project').addClass('active')
+
+  $('a#tab_forms').click ->
+    $('div#surveys').addClass('hidden')
+    $('div#project').addClass('hidden')
+    $('div#forms').removeClass('hidden')
+    $('li#li_forms').addClass('active')
+    $('li#li_surveys').removeClass('active')
+    $('li#li_project').removeClass('active')
+
+  $('a#tab_surveys').click ->
+    $('div#forms').addClass('hidden')    
+    $('div#project').addClass('hidden')
+    $('div#surveys').removeClass('hidden')
+    $('li#li_forms').removeClass('active')
+    $('li#li_surveys').addClass('active')
+    $('li#li_project').removeClass('active')
+
+  $('a#tab_project').click()
+
   $('#sort_folders tbody').sortable
     cursor: 'move'
     opacity: 0.7
@@ -191,6 +225,11 @@ $ ->
   $('a[id^="ad_form_"]').each ->
     $($(this)).click ->
       askDeleteForm $(this).attr('id').split('_')[2]
+      return
+
+  $('a[id^="ad_survey_"]').each ->
+    $($(this)).click ->
+      askDeleteSurvey $(this).attr('id').split('_')[2]
       return
 
   return

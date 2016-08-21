@@ -5,13 +5,14 @@
   Edit Project
 
 %ul.nav.nav-tabs
-  %li.active#project{ role: :presentation }
-    = link_to 'Project', 'javascript:;'
-  %li#forms{ role: :presentation }
-    = link_to 'Forms', 'javascript:;'
-  %li#surveys{ role: :presentation }
-    = link_to 'Surveys', 'javascript:;'
+  %li#li_project{ role: :presentation }
+    = link_to 'Project', 'javascript:;', id: :tab_project
+  %li#li_forms{ role: :presentation }
+    = link_to 'Forms', 'javascript:;', id: :tab_forms
+  %li#li_surveys{ role: :presentation }
+    = link_to 'Surveys', 'javascript:;', id: :tab_surveys
 
-= render partial: 'projects/edit_project'
-= render partial: 'projects/edit_forms'
-= render partial: 'projects/edit_surveys'
+.col-md-6
+  = render partial: 'projects/edit_project'
+  = render partial: 'projects/edit_forms'
+  = render partial: 'projects/edit_surveys'

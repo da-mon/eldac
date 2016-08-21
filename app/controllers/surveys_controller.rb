@@ -9,7 +9,7 @@ class SurveysController < ApplicationController
   def create
     @survey = Survey.create(survey_params.merge(project: @project))
     if @survey.valid?
-      redirect_to edit_project_path(@project)
+      redirect_to edit_project_survey_path(@project, @survey)
       return
     end
     render 'projects/edit'
@@ -25,6 +25,14 @@ class SurveysController < ApplicationController
       return
     end
     render 'surveys/edit'
+  end
+
+  def ask_delete
+  end
+
+  def destroy
+    @id = @survey.id
+    @survey.destroy
   end
 
   private
